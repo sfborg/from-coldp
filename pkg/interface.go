@@ -4,9 +4,9 @@ import (
 	"github.com/gnames/coldp/ent/coldp"
 )
 
-// FromColDP provies methods to convert CoLDP Archive to Species File Group
+// FromCoLDP provies methods to convert CoLDP Archive to Species File Group
 // Archive.
-type FromColDP interface {
+type FromCoLDP interface {
 	// GetCoLDP reads a CoLDP Archive from a file, preparing it for ingestion.
 	GetCoLDP(file string) (coldp.Archive, error)
 

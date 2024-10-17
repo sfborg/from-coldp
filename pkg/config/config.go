@@ -17,7 +17,7 @@ var (
 	repoTag = "v0.3.0"
 
 	// schemaHash is the sha256 sum of the correponding schema version.
-	schemaHash = ""
+	schemaHash = "0cd128f5334755c9958"
 
 	// jobsNum is the default number of concurrent jobs to run.
 	jobsNum = 5

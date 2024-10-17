@@ -24,8 +24,13 @@ package cmd
 import (
 	"log/slog"
 	"os"
+	"path/filepath"
 
+	"github.com/sfborg/from-coldp/internal/io/sfgarcio"
+	"github.com/sfborg/from-coldp/internal/io/sysio"
 	"github.com/sfborg/from-coldp/pkg/config"
+	"github.com/sfborg/sflib/io/dbio"
+	"github.com/sfborg/sflib/io/schemaio"
 	"github.com/spf13/cobra"
 )
 
@@ -54,31 +59,31 @@ var rootCmd = &cobra.Command{
 		}
 
 		slog.Info("Converting CoLDP to SFGA")
-		_ = err
-		// dwcaPath := args[0]
-		// outputPath := args[1]
+		coldpPath := args[0]
+		outputPath := args[1]
 
-		// ext := filepath.Ext(outputPath)
-		// if ext == ".sqlite" {
-		// 	opts = append(opts, config.OptWithBinOutput(true))
-		// }
-		//
-		// cfg := config.New(opts...)
-		// err = sysio.New(cfg).Init()
-		// if err != nil {
-		// 	slog.Error("Cannot initialize file system", "error", err)
-		// 	os.Exit(1)
-		// }
-		//
-		// sfgaSchema := schemaio.New(cfg.GitRepo, cfg.TempRepoDir)
-		// sfgaDB := dbio.New(cfg.CacheSfgaDir)
-		//
-		// sfarc := sfarcio.New(cfg, sfgaSchema, sfgaDB)
-		// err = sfarc.Connect()
-		// if err != nil {
-		// 	slog.Error("Cannot initialize storage", "error", err)
-		// 	os.Exit(1)
-		// }
+		ext := filepath.Ext(outputPath)
+		if ext == ".sqlite" {
+			opts = append(opts, config.OptWithBinOutput(true))
+		}
+
+		cfg := config.New(opts...)
+		err = sysio.New(cfg).Init()
+		if err != nil {
+			slog.Error("Cannot initialize file system", "error", err)
+			os.Exit(1)
+		}
+
+		sfgaSchema := schemaio.New(cfg.GitRepo, cfg.TempRepoDir)
+		sfgaDB := dbio.New(cfg.CacheSfgaDir)
+		_, _, _, _ = err, coldpPath, sfgaSchema, sfgaDB
+
+		sfarc := sfgarcio.New(cfg, sfgaSchema, sfgaDB)
+		err = sfarc.Connect()
+		if err != nil {
+			slog.Error("Cannot initialize storage", "error", err)
+			os.Exit(1)
+		}
 		//
 		// fd := fdwca.New(cfg, sfarc)
 		// var arc dwca.Archive

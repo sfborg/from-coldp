@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v0.0.1] - 2024-03-15 Fri
 
+Add [#2]: download SFGA schema.
+
 ## [v0.0.0] - 2024-03-08 Fri
 
 Add [#1]: create app structure.
