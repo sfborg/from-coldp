@@ -26,8 +26,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/gnames/coldp/ent/coldp"
 	"github.com/sfborg/from-coldp/internal/io/sfgarcio"
 	"github.com/sfborg/from-coldp/internal/io/sysio"
+	fcoldp "github.com/sfborg/from-coldp/pkg"
 	"github.com/sfborg/from-coldp/pkg/config"
 	"github.com/sfborg/sflib/io/dbio"
 	"github.com/sfborg/sflib/io/schemaio"
@@ -76,7 +78,6 @@ var rootCmd = &cobra.Command{
 
 		sfgaSchema := schemaio.New(cfg.GitRepo, cfg.TempRepoDir)
 		sfgaDB := dbio.New(cfg.CacheSfgaDir)
-		_, _, _, _ = err, coldpPath, sfgaSchema, sfgaDB
 
 		sfarc := sfgarcio.New(cfg, sfgaSchema, sfgaDB)
 		err = sfarc.Connect()
@@ -84,17 +85,18 @@ var rootCmd = &cobra.Command{
 			slog.Error("Cannot initialize storage", "error", err)
 			os.Exit(1)
 		}
-		//
-		// fd := fdwca.New(cfg, sfarc)
-		// var arc dwca.Archive
-		//
-		// slog.Info("Importing DwCA data", "file", dwcaPath)
-		// arc, err = fd.GetDwCA(dwcaPath)
-		// if err != nil {
-		// 	slog.Error("Cannot get DarwinCore Archive", "error", err)
-		// 	os.Exit(1)
-		// }
-		//
+
+		fc := fcoldp.New(cfg, sfarc)
+		var arc coldp.Archive
+
+		slog.Info("Importing CoLDP data", "file", coldpPath)
+		arc, err = fc.GetCoLDP(coldpPath)
+		if err != nil {
+			slog.Error("Cannot get CoLDP Archive", "error", err)
+			os.Exit(1)
+		}
+		_ = arc
+
 		// slog.Info("Exporting data to SQLite")
 		// err = fd.ImportDwCA(arc)
 		// if err != nil {
