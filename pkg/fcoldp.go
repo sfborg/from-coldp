@@ -48,6 +48,11 @@ func (fc *fcoldp) ImportCoLDP(arc coldp.Archive) error {
 	if err != nil {
 		return err
 	}
+
+	err = fc.importData()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
