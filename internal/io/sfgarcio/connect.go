@@ -16,6 +16,7 @@ func (s *sfgarcio) Connect() error {
 	s.db, err = s.sfdb.Connect()
 	if err != nil {
 		slog.Error("Cannot connect to SQLite database", "error", err)
+		return err
 	}
 
 	return nil

@@ -97,12 +97,12 @@ var rootCmd = &cobra.Command{
 		}
 		_ = arc
 
-		// slog.Info("Exporting data to SQLite")
-		// err = fd.ImportDwCA(arc)
-		// if err != nil {
-		// 	slog.Error("Cannot export data", "error", err)
-		// 	os.Exit(1)
-		// }
+		slog.Info("Exporting data to SQLite")
+		err = fc.ImportCoLDP(arc)
+		if err != nil {
+			slog.Error("Cannot export data", "error", err)
+			os.Exit(1)
+		}
 		//
 		// slog.Info("Making SFGArchive")
 		// err = fd.ExportSFGA(outputPath)
@@ -111,7 +111,7 @@ var rootCmd = &cobra.Command{
 		// 	os.Exit(1)
 		// }
 		//
-		// slog.Info("DwCA data has been imported successfully")
+		// slog.Info("CoLDP data has been imported successfully")
 	},
 }
 

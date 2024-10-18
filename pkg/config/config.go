@@ -14,17 +14,17 @@ var (
 	repoURL = "https://github.com/sfborg/sfga"
 
 	// tag of the sfga repo to get correct schema version.
-	repoTag = "v0.3.0"
+	repoTag = "v0.3.5"
 
 	// schemaHash is the sha256 sum of the correponding schema version.
-	schemaHash = "0cd128f5334755c9958"
+	schemaHash = "d03436f35fcec"
 
 	// jobsNum is the default number of concurrent jobs to run.
 	jobsNum = 5
 )
 
-// Config is a configuration object for the Darwin Core Archive (DwCA)
-// data processing.
+// Config is a configuration object for the Catalogue of Life Data
+// Package Archive (CoLDP) data processing.
 type Config struct {
 	// GitRepo contains data for sfga schema Git repository.
 	sfga.GitRepo
@@ -71,7 +71,7 @@ func OptCacheDir(s string) Option {
 }
 
 // OptCacheSfgaDir sets the path to store resulting sqlite file with data imported
-// from DwCA file.
+// from CoLDP file.
 func OptCacheSfgaDir(s string) Option {
 	return func(c *Config) {
 		c.CacheSfgaDir = s
