@@ -2,6 +2,8 @@ module github.com/sfborg/from-coldp
 
 go 1.23.2
 
+replace github.com/gnames/coldp => ../coldp
+
 require (
 	github.com/gnames/coldp v0.1.0
 	github.com/gnames/gnfmt v0.5.2
@@ -11,11 +13,14 @@ require (
 	github.com/sfborg/sflib v0.1.5
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/cobra-cli v1.3.0
+	github.com/stretchr/testify v1.9.0
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )
 
 require (
 	github.com/VividCortex/ewma v1.2.0 // indirect
 	github.com/cheggaaa/pb/v3 v3.1.5 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fatih/color v1.17.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
@@ -33,6 +38,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/spf13/afero v1.6.0 // indirect

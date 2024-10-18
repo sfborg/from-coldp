@@ -70,7 +70,7 @@ var rootCmd = &cobra.Command{
 		}
 
 		cfg := config.New(opts...)
-		err = sysio.New(cfg).Init()
+		err = sysio.New(cfg).ResetCache()
 		if err != nil {
 			slog.Error("Cannot initialize file system", "error", err)
 			os.Exit(1)

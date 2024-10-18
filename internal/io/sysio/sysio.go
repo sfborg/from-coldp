@@ -16,19 +16,11 @@ func New(cfg config.Config) sys.Sys {
 	return &sysio{cfg: cfg}
 }
 
-func (s *sysio) Init() error {
-	err := s.cleanup()
+func (s *sysio) ResetCache() error {
+	err := os.RemoveAll(s.cfg.CacheDir)
 	if err != nil {
 		return err
 	}
 	gnsys.MakeDir(s.cfg.CacheSfgaDir)
 	return nil
-}
-
-func (s *sysio) Close() error {
-	return s.cleanup()
-}
-
-func (s *sysio) cleanup() error {
-	return os.RemoveAll(s.cfg.CacheDir)
 }

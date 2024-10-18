@@ -9,19 +9,20 @@ import (
 
 func (s *sfgarcio) InsertMeta(m *coldp.Meta) error {
 	var id int
-	q := `INSERT INTO metadata
-			(
-   doi, title, alias, description, issued, version, keywords,
-   geographic_scope, taxonomic_scope, temporal_scope, confidence,
-   completeness, license, url, logo, label, citation, private
-		  )
-		VALUES
-			(?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?)`
+	q := `
+	INSERT INTO metadata
+		(
+		doi, title, alias, description, issued, version, keywords,
+		geographic_scope, taxonomic_scope, temporal_scope, confidence,
+		completeness, license, url, logo, label, citation, private
+		)
+	VALUES
+		(?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?)`
 
 	keywords := strings.Join(m.Keywords, ",")
-	private := "no"
+	var private int
 	if m.Private {
-		private = "yes"
+		private = 1
 	}
 
 	_, err := s.db.Exec(q,
@@ -60,12 +61,12 @@ func (s *sfgarcio) InsertMeta(m *coldp.Meta) error {
 		}
 	}
 
-	// for _, v := range m.Creators {
-	// 	err = s.addActor(&v, id, "creator")
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// }
+	for _, v := range m.Creators {
+		err = s.addActor(&v, id, "creator")
+		if err != nil {
+			return err
+		}
+	}
 
 	for _, v := range m.Contributors {
 		err = s.addActor(&v, id, "contributor")

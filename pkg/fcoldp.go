@@ -10,7 +10,6 @@ import (
 
 type fcoldp struct {
 	cfg config.Config
-	c   coldp.Archive
 	s   sfgarc.Archive
 }
 
@@ -25,26 +24,32 @@ func New(cfg config.Config, sfgarc sfgarc.Archive) FromCoLDP {
 // GetCoLDP reads a CoLDP Archive from a file, preparing it for ingestion.
 func (fc *fcoldp) GetCoLDP(path string) (coldp.Archive, error) {
 	cfg := coldpConfig.New()
-	fc.c = arcio.New(cfg, path)
-	err := fc.c.ResetCache()
+	c := arcio.New(cfg, path)
+	// Resets cache for coldp working dir
+	err := c.ResetCache()
 	if err != nil {
 		return nil, err
 	}
-	err = fc.c.Extract()
+	err = c.Extract()
 	if err != nil {
 		return nil, err
 	}
-	err = fc.c.DirInfo()
+	err = c.DirInfo()
 	if err != nil {
 		return nil, err
 	}
-	return nil, nil
+	return c, nil
 }
 
 // ImportCoLDP converts a coldp.Archive to a Species File Group Archive
 // database.
-func (fc *fcoldp) ImportCoLDP(arc coldp.Archive) error {
-	err := fc.importMeta()
+func (fc *fcoldp) ImportCoLDP(c coldp.Archive) error {
+	err := fc.importMeta(c)
+	if err != nil {
+		return err
+	}
+
+	err = fc.importData(c)
 	if err != nil {
 		return err
 	}

@@ -1,7 +1,9 @@
 package fcoldp
 
-func (fc *fcoldp) importMeta() error {
-	meta, err := fc.c.Meta()
+import "github.com/gnames/coldp/ent/coldp"
+
+func (fc *fcoldp) importMeta(c coldp.Archive) error {
+	meta, err := c.Meta()
 	if err != nil {
 		return err
 	}
