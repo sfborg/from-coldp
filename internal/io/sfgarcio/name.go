@@ -2,7 +2,7 @@ package sfgarcio
 
 import "github.com/gnames/coldp/ent/coldp"
 
-func (s *sfgarcio) InsertNames(names []*coldp.Name) error {
+func (s *sfgarcio) InsertNames(names []coldp.Name) error {
 	tx, err := s.db.Begin()
 	if err != nil {
 		return err

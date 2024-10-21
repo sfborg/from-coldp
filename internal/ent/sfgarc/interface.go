@@ -8,6 +8,7 @@ type Archive interface {
 	Close() error
 
 	InsertMeta(meta *coldp.Meta) error
+	InsertNames(names []coldp.Name) error
 	Export(outPath string) error
 }
 

@@ -2,7 +2,6 @@ package fcoldp
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/gnames/coldp/ent/coldp"
 	"golang.org/x/sync/errgroup"
@@ -28,24 +27,15 @@ func (fc *fcoldp) importData(c coldp.Archive) error {
 	return nil
 }
 
-func dwNew(t coldp.DattaLoader, f func(*sql.DB, []T)) error {
-	return dataWriter{data: t, f: f}
-}
-
-type dataWriter[T coldp.DataLoader] struct {
-	data T
-	f    func(*sql.DB, []T) error
-}
-
-func (dw dataWriter[T]) importData(fc *fcoldp, path string, c coldp.Archive) error {
-	chIn := make(chan T)
+func (fc *fcoldp) importName(path string, c coldp.Archive) error {
+	chIn := make(chan coldp.Name)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	g, ctx := errgroup.WithContext(ctx)
 	defer cancel()
 
 	g.Go(func() error {
-		err := dw.process(fc, chIn)
+		err := fc.processNames(chIn)
 		if err != nil {
 			for range chIn {
 			}
@@ -64,18 +54,14 @@ func (dw dataWriter[T]) importData(fc *fcoldp, path string, c coldp.Archive) err
 	return nil
 }
 
-func (dw dataWriter[T]) process(fc *fcoldp, chIn chan T) error {
-	return nil
-}
-
 func (fc *fcoldp) processNames(chIn <-chan coldp.Name) error {
 	var err error
-	names := make([]*coldp.Name, 0, fc.cfg.BatchSize)
+	names := make([]coldp.Name, 0, fc.cfg.BatchSize)
 	var count int
 
 	for n := range chIn {
 		count++
-		names = append(names, &n)
+		names = append(names, n)
 		if count == fc.cfg.BatchSize {
 			err = fc.s.InsertNames(names)
 			count = 0
@@ -91,5 +77,9 @@ func (fc *fcoldp) processNames(chIn <-chan coldp.Name) error {
 		return err
 	}
 
+	return nil
+}
+
+func (fc *fcoldp) importTaxon(path string, c coldp.Archive) error {
 	return nil
 }
