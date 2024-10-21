@@ -9,6 +9,7 @@ type Archive interface {
 
 	InsertMeta(meta *coldp.Meta) error
 	InsertNames(names []coldp.Name) error
+	InsertTaxa(names []coldp.Taxon) error
 	Export(outPath string) error
 }
 

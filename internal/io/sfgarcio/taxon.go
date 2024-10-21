@@ -2,6 +2,33 @@ package sfgarcio
 
 import "github.com/gnames/coldp/ent/coldp"
 
-func InsertTaxa(ch []*coldp.Taxon) error {
-	return nil
+func (s *sfgarcio) InsertTaxa(taxa []coldp.Taxon) error {
+	tx, err := s.db.Begin()
+	if err != nil {
+		return err
+	}
+	stmt, err := tx.Prepare(`
+	INSERT INTO taxon
+		(
+   id, name_id, parent_id, according_to_id, scrutinizer,
+   scrutinizer_id, scrutinizer_date, reference_id, link
+		)
+	VALUES (?,?,?,?,?, ?,?,?,?)
+`)
+	if err != nil {
+		return err
+	}
+
+	for _, t := range taxa {
+		_, err = stmt.Exec(
+			t.ID, t.NameID, t.ParentID, t.AccordingToID, t.Scrutinizer,
+			t.ScrutinizerID, t.ScrutinizerDate, t.ReferenceID, t.Link,
+		)
+		if err != nil {
+			return err
+		}
+	}
+
+	stmt.Close()
+	return tx.Commit()
 }
