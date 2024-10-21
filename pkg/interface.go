@@ -7,7 +7,7 @@ import (
 // FromCoLDP provies methods to convert CoLDP Archive to Species File Group
 // Archive.
 type FromCoLDP interface {
-	// GetCoLDP reads a CoLDP Archive from a file, preparing it for ingestion.
+	// GetCoLDP extracts files of CoLDP Archive, preparing it for ingestion.
 	GetCoLDP(file string) (coldp.Archive, error)
 
 	// ImportCoLDP converts a coldp.Archive to a Species File Group Archive
