@@ -4,23 +4,23 @@ import (
 	"context"
 
 	"github.com/gnames/coldp/ent/coldp"
+	"github.com/sfborg/from-coldp/internal/ent/sfgarc"
 	"golang.org/x/sync/errgroup"
 )
 
-func (fc *fcoldp) importName(path string, c coldp.Archive) error {
-	chIn := make(chan coldp.Name)
+func importDataGeneric[T coldp.DataLoader](
+	fc *fcoldp,
+	path string,
+	c coldp.Archive,
+	insertFunc func(sfgarc.Archive, []T) error) error {
+	chIn := make(chan T)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	g, ctx := errgroup.WithContext(ctx)
 	defer cancel()
 
 	g.Go(func() error {
-		err := fc.processNames(chIn)
-		if err != nil {
-			for range chIn {
-			}
-		}
-		return err
+		return insertGeneric(fc.s, fc.cfg.BatchSize, chIn, insertFunc)
 	})
 
 	err := coldp.Read(c.Config(), path, chIn)
@@ -34,16 +34,21 @@ func (fc *fcoldp) importName(path string, c coldp.Archive) error {
 	return nil
 }
 
-func (fc *fcoldp) processNames(chIn <-chan coldp.Name) error {
+func insertGeneric[T coldp.DataLoader](
+	s sfgarc.Archive,
+	batchSize int,
+	ch <-chan T,
+	insertFunc func(sfgarc.Archive, []T) error,
+) error {
 	var err error
-	names := make([]coldp.Name, 0, fc.cfg.BatchSize)
+	names := make([]T, 0, batchSize)
 	var count int
 
-	for n := range chIn {
+	for n := range ch {
 		count++
 		names = append(names, n)
-		if count == fc.cfg.BatchSize {
-			err = fc.s.InsertNames(names)
+		if count == batchSize {
+			err = insertFunc(s, names)
 			count = 0
 			names = names[:0]
 			if err != nil {
@@ -52,10 +57,9 @@ func (fc *fcoldp) processNames(chIn <-chan coldp.Name) error {
 		}
 	}
 
-	err = fc.s.InsertNames(names[:count])
+	err = insertFunc(s, names[:count])
 	if err != nil {
 		return err
 	}
-
 	return nil
 }

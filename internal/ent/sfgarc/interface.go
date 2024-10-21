@@ -8,8 +8,10 @@ type Archive interface {
 	Close() error
 
 	InsertMeta(meta *coldp.Meta) error
-	InsertNames(names []coldp.Name) error
-	InsertTaxa(names []coldp.Taxon) error
+	InsertNames(data []coldp.Name) error
+	InsertTaxa(data []coldp.Taxon) error
+	InsertSynonyms(data []coldp.Synonym) error
+
 	Export(outPath string) error
 }
 
