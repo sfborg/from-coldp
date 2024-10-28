@@ -80,13 +80,13 @@ func (s *sfgarcio) InsertMeta(m *coldp.Meta) error {
 
 func (s *sfgarcio) addActor(cnt *coldp.Actor, metaID int, table string) error {
 	q := `INSERT INTO ` + table + `
-      (metadata_id, orcid, given, family, rorid, name, email, url, note)
+      (metadata_id, orcid, given, family, rorid, organisation, email, url, note)
 			VALUES
       (?,?,?,?,?,?,?,?,?)`
 
 	_, err := s.db.Exec(q,
-		metaID, cnt.Orcid, cnt.Given, cnt.Family, cnt.RorID, cnt.Organization,
-		cnt.Email, cnt.URL, cnt.Note,
+		metaID, cnt.Orcid, cnt.Given, cnt.Family, cnt.RorID,
+		cnt.Organization, cnt.Email, cnt.URL, cnt.Note,
 	)
 	if err != nil {
 		slog.Error("Error inserting metadata contact", "error", err)
