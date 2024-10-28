@@ -120,8 +120,7 @@ func insertSpeciesInteractions(
 	s sfgarc.Archive,
 	data []coldp.SpeciesInteraction,
 ) error {
-	// TODO
-	return nil
+	return s.InsertSpeciesInteractions(data)
 }
 
 func insertSynonyms(s sfgarc.Archive, data []coldp.Synonym) error {
@@ -136,26 +135,22 @@ func insertTaxonConceptRels(
 	s sfgarc.Archive,
 	data []coldp.TaxonConceptRelation,
 ) error {
-	// TODO
-	return nil
+	return s.InsertTaxonConceptRelations(data)
 }
 
 func insertTaxonProperties(
 	s sfgarc.Archive,
 	data []coldp.TaxonProperty,
 ) error {
-	// TODO
-	return nil
+	return s.InsertTaxonProperties(data)
 }
 
 func insertTreatments(s sfgarc.Archive, data []coldp.Treatment) error {
-	// TODO
-	return nil
+	return s.InsertTreatments(data)
 }
 
 func insertTypeMaterials(s sfgarc.Archive, data []coldp.TypeMaterial) error {
-	// TODO
-	return nil
+	return s.InsertTypeMaterials(data)
 }
 
 func insertVernaculars(s sfgarc.Archive, data []coldp.Vernacular) error {

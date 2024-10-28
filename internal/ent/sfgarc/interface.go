@@ -16,8 +16,13 @@ type Archive interface {
 	InsertNameUsages(data []coldp.NameUsage) error
 	InsertReferences(data []coldp.Reference) error
 	InsertSpeciesEstimates(data []coldp.SpeciesEstimate) error
+	InsertSpeciesInteractions(data []coldp.SpeciesInteraction) error
 	InsertSynonyms(data []coldp.Synonym) error
 	InsertTaxa(data []coldp.Taxon) error
+	InsertTaxonConceptRelations(data []coldp.TaxonConceptRelation) error
+	InsertTaxonProperties(data []coldp.TaxonProperty) error
+	InsertTreatments(data []coldp.Treatment) error
+	InsertTypeMaterials(data []coldp.TypeMaterial) error
 	InsertVernaculars(data []coldp.Vernacular) error
 
 	Export(outPath string) error
