@@ -82,18 +82,15 @@ func (fc *fcoldp) importData(c coldp.Archive) error {
 }
 
 func insertAuthors(s sfgarc.Archive, data []coldp.Author) error {
-	// TODO
-	return nil
+	return s.InsertAuthors(data)
 }
 
 func insertDistributions(s sfgarc.Archive, data []coldp.Distribution) error {
-	// TODO
-	return nil
+	return s.InsertDistributions(data)
 }
 
 func insertMedia(s sfgarc.Archive, data []coldp.Media) error {
-	// TODO
-	return nil
+	return s.InsertMedia(data)
 }
 
 func insertNames(s sfgarc.Archive, data []coldp.Name) error {
@@ -101,13 +98,11 @@ func insertNames(s sfgarc.Archive, data []coldp.Name) error {
 }
 
 func insertNameRelations(s sfgarc.Archive, data []coldp.NameRelation) error {
-	// TODO
-	return nil
+	return s.InsertNameRelations(data)
 }
 
 func insertNameUsages(s sfgarc.Archive, data []coldp.NameUsage) error {
-	// TODO
-	return nil
+	return s.InsertNameUsages(data)
 }
 
 func insertReferences(s sfgarc.Archive, data []coldp.Reference) error {
@@ -118,8 +113,7 @@ func insertSpeciesEstimates(
 	s sfgarc.Archive,
 	data []coldp.SpeciesEstimate,
 ) error {
-	// TODO
-	return nil
+	return s.InsertSpeciesEstimates(data)
 }
 
 func insertSpeciesInteractions(
