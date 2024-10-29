@@ -11,7 +11,7 @@ func (s *sfgarcio) InsertMedia(data []coldp.Media) error {
 	INSERT INTO media
 		(
 			taxon_id, source_id, url, type, format, title, created,
-			creator, license, link, remarks, modified, modified_by,
+			creator, license, link, remarks, modified, modified_by
 		)
 	VALUES (?,?,?,?,?,?,?, ?,?,?,?,?,?)
 `)

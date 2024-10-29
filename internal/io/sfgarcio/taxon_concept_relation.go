@@ -13,7 +13,7 @@ func (s *sfgarcio) InsertTaxonConceptRelations(
 	INSERT INTO taxon_concept_relation
 		(
 			taxon_id, related_taxon_id, source_id, type, reference_id,
-			remarks, modified, modified_by,
+			remarks, modified, modified_by
 		)
 	VALUES (?,?,?,?,?, ?,?,?)
 `)
@@ -23,7 +23,7 @@ func (s *sfgarcio) InsertTaxonConceptRelations(
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.TaxonID, n.RelatedTaxonID, n.SourceID, n.Type, n.ReferenceID,
+			n.TaxonID, n.RelatedTaxonID, n.SourceID, n.Type.String(), n.ReferenceID,
 			n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {

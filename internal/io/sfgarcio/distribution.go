@@ -21,9 +21,8 @@ func (s *sfgarcio) InsertDistributions(data []coldp.Distribution) error {
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.TaxonID, n.SourceID, n.Area, n.AreaID, n.Gazetteer,
-			n.Status, n.ReferenceID, n.Remarks, n.Modified,
-			n.ModifiedBy,
+			n.TaxonID, n.SourceID, n.Area, n.AreaID, n.Gazetteer.String(),
+			n.Status.String(), n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {
 			return err

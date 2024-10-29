@@ -8,7 +8,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-func importDataGeneric[T coldp.DataLoader](
+func importData[T coldp.DataLoader](
 	fc *fcoldp,
 	path string,
 	c coldp.Archive,
@@ -20,7 +20,7 @@ func importDataGeneric[T coldp.DataLoader](
 	defer cancel()
 
 	g.Go(func() error {
-		return insertGeneric(fc.s, fc.cfg.BatchSize, chIn, insertFunc)
+		return insert(fc.s, fc.cfg.BatchSize, chIn, insertFunc)
 	})
 
 	err := coldp.Read(c.Config(), path, chIn)
@@ -34,7 +34,7 @@ func importDataGeneric[T coldp.DataLoader](
 	return nil
 }
 
-func insertGeneric[T coldp.DataLoader](
+func insert[T coldp.DataLoader](
 	s sfgarc.Archive,
 	batchSize int,
 	ch <-chan T,

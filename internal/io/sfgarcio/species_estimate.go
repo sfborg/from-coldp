@@ -11,7 +11,7 @@ func (s *sfgarcio) InsertSpeciesEstimates(data []coldp.SpeciesEstimate) error {
 	INSERT INTO species_estimate
 		(
 		taxon_id, source_id, estimate, type, reference_id,
-		remarks, modified, modified_by,
+		remarks, modified, modified_by
 		)
 	VALUES (?,?,?,?,?, ?,?,?)
 `)
@@ -21,7 +21,7 @@ func (s *sfgarcio) InsertSpeciesEstimates(data []coldp.SpeciesEstimate) error {
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.TaxonID, n.SourceID, n.Estimate, n.Type, n.ReferenceID,
+			n.TaxonID, n.SourceID, n.Estimate, n.Type.String(), n.ReferenceID,
 			n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {

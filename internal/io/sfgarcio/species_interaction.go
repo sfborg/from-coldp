@@ -13,7 +13,7 @@ func (s *sfgarcio) InsertSpeciesInteractions(
 	INSERT INTO species_interaction
 		(
 			taxon_id, related_taxon_id, source_id, related_taxon_scientific_name,
-			type, reference_id, remarks, modified, modified_by,
+			type, reference_id, remarks, modified, modified_by
 		)
 	VALUES (?,?,?,?, ?,?,?,?,?)
 `)
@@ -24,7 +24,7 @@ func (s *sfgarcio) InsertSpeciesInteractions(
 	for _, n := range data {
 		_, err = stmt.Exec(
 			n.TaxonID, n.RelatedTaxonID, n.SourceID, n.RelatedTaxonScientificName,
-			n.Type, n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
+			n.Type.String(), n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {
 			return err

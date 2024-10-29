@@ -13,7 +13,7 @@ func (s *sfgarcio) InsertTaxonProperties(
 	INSERT INTO taxon_property
 		(
 		taxon_id, source_id, property, value, reference_id, page,
-		ordinal, remarks, modified, modified_by,
+		ordinal, remarks, modified, modified_by
 		)
 	VALUES (?,?,?,?,?,?, ?,?,?,?)
 `)

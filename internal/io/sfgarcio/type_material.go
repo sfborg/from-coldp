@@ -11,11 +11,11 @@ func (s *sfgarcio) InsertTypeMaterials(data []coldp.TypeMaterial) error {
 	INSERT INTO type_material
 		(
 		id, source_id, name_id, citation, status_id, institution_code,
-		catalog_number, reference_id, locality, country, latitude, longitude,
-		altitude, host, sex_id, date, collector, associated_sequences,
-		link, remarks, modified, modified_by,
+		catalog_number, reference_id, locality, country, latitude,
+		longitude, altitude, host, sex_id, date, collector,
+		associated_sequences, link, remarks, modified, modified_by
 		)
-	VALUES (?,?,?,?,?,?, ?,?,?,?,?,?, ?,?,?,?,?,?, ?,?,?,?)
+	VALUES (?,?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?,?, ?,?,?,?,?)
 `)
 	if err != nil {
 		return err

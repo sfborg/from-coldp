@@ -1,6 +1,8 @@
 package fcoldp
 
 import (
+	"log/slog"
+
 	"github.com/gnames/coldp/ent/coldp"
 	"github.com/sfborg/from-coldp/internal/ent/sfgarc"
 )
@@ -8,76 +10,106 @@ import (
 func (fc *fcoldp) importData(c coldp.Archive) error {
 	var err error
 	paths := c.DataPaths()
-	for k, v := range paths {
-		switch k {
-		case coldp.AuthorDT:
-			if err = importDataGeneric(fc, v, c, insertAuthors); err != nil {
-				return err
-			}
-		case coldp.DistributionDT:
-			if err = importDataGeneric(fc, v, c, insertDistributions); err != nil {
-				return err
-			}
-		case coldp.MediaDT:
-			if err = importDataGeneric(fc, v, c, insertMedia); err != nil {
-				return err
-			}
-		case coldp.NameDT:
-			if err = importDataGeneric(fc, v, c, insertNames); err != nil {
-				return err
-			}
-		case coldp.NameRelationDT:
-			if err = importDataGeneric(fc, v, c, insertNameRelations); err != nil {
-				return err
-			}
-		case coldp.NameUsageDT:
-			if err = importDataGeneric(fc, v, c, insertNameUsages); err != nil {
-				return err
-			}
-		case coldp.ReferenceDT:
-			if err = importDataGeneric(fc, v, c, insertReferences); err != nil {
-				return err
-			}
-		case coldp.SpeciesEstimateDT:
-			if err = importDataGeneric(fc, v, c, insertSpeciesEstimates); err != nil {
-				return err
-			}
-		case coldp.SpeciesInteractionDT:
-			if err = importDataGeneric(
-				fc, v, c, insertSpeciesInteractions,
-			); err != nil {
-				return err
-			}
-		case coldp.SynonymDT:
-			if err = importDataGeneric(fc, v, c, insertSynonyms); err != nil {
-				return err
-			}
-		case coldp.TaxonDT:
-			if err = importDataGeneric(fc, v, c, insertTaxa); err != nil {
-				return err
-			}
-		case coldp.TaxonConceptRelationDT:
-			if err = importDataGeneric(fc, v, c, insertTaxonConceptRels); err != nil {
-				return err
-			}
-		case coldp.TaxonPropertyDT:
-			if err = importDataGeneric(fc, v, c, insertTaxonProperties); err != nil {
-				return err
-			}
-		case coldp.TreatmentDT:
-			if err = importDataGeneric(fc, v, c, insertTreatments); err != nil {
-				return err
-			}
-		case coldp.TypeMaterialDT:
-			if err = importDataGeneric(fc, v, c, insertTypeMaterials); err != nil {
-				return err
-			}
-		case coldp.VernacularNameDT:
-			if err = importDataGeneric(fc, v, c, insertVernaculars); err != nil {
-				return err
-			}
+
+	if res, ok := paths[coldp.AuthorDT]; ok {
+		slog.Info("Importing Authors")
+		if err = importData(fc, res, c, insertAuthors); err != nil {
+			return err
 		}
 	}
+	if res, ok := paths[coldp.ReferenceDT]; ok {
+		slog.Info("Importing References")
+		if err = importData(fc, res, c, insertReferences); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.NameDT]; ok {
+		slog.Info("Importing Names")
+		if err = importData(fc, res, c, insertNames); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.TaxonDT]; ok {
+		slog.Info("Importing Taxa")
+		if err = importData(fc, res, c, insertTaxa); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.SynonymDT]; ok {
+		slog.Info("Importing Synonyms")
+		if err = importData(fc, res, c, insertSynonyms); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.NameUsageDT]; ok {
+		slog.Info("Importing Name Usages")
+		if err = importData(fc, res, c, insertNameUsages); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.VernacularNameDT]; ok {
+		slog.Info("Importing Vernacular Names")
+		if err = importData(fc, res, c, insertVernaculars); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.NameRelationDT]; ok {
+		slog.Info("Importing Names Relations")
+		if err = importData(fc, res, c, insertNameRelations); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.TypeMaterialDT]; ok {
+		slog.Info("Importing Type Materials")
+		if err = importData(fc, res, c, insertTypeMaterials); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.DistributionDT]; ok {
+		slog.Info("Importing Distributions")
+		if err = importData(fc, res, c, insertDistributions); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.MediaDT]; ok {
+		slog.Info("Importing Media")
+		if err = importData(fc, res, c, insertMedia); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.TreatmentDT]; ok {
+		slog.Info("Importing Treatments")
+		if err = importData(fc, res, c, insertTreatments); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.SpeciesEstimateDT]; ok {
+		slog.Info("Importing Species Estimations")
+		if err = importData(fc, res, c, insertSpeciesEstimates); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.TaxonPropertyDT]; ok {
+		slog.Info("Importing Taxon Properties")
+		if err = importData(fc, res, c, insertTaxonProperties); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.SpeciesInteractionDT]; ok {
+		slog.Info("Importing Species Interactions")
+		if err = importData(
+			fc, res, c, insertSpeciesInteractions,
+		); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.TaxonConceptRelationDT]; ok {
+		slog.Info("Importing Taxon Concept Relations")
+		if err = importData(fc, res, c, insertTaxonConceptRels); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 

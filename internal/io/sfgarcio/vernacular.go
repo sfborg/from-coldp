@@ -10,10 +10,11 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 	stmt, err := tx.Prepare(`
 	INSERT INTO vernacular
 		(
-			taxon_id, name, transliteration, language, preferred, country,
-			area, sex, reference_id, remarks, modified, modified_by
+			taxon_id, source_id, name, transliteration, language, preferred,
+	   	country, area, sex, reference_id, remarks, modified,
+	  	modified_by
 		)
-	VALUES (?,?,?,?,?,?, ?,?,?,?,?,?)
+	VALUES (?,?,?,?,?,?, ?,?,?,?,?,?, ?)
 `)
 	if err != nil {
 		return err
@@ -25,8 +26,9 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 			pref = 1
 		}
 		_, err = stmt.Exec(
-			d.TaxonID, d.Name, d.Transliteration, d.Language, pref, d.Country,
-			d.Area, d.Sex, d.ReferenceID, d.Remarks, d.Modified, d.ModifiedBy,
+			d.TaxonID, d.SourceID, d.Name, d.Transliteration, d.Language, pref,
+			d.Country, d.Area, d.Sex, d.ReferenceID, d.Remarks, d.Modified,
+			d.ModifiedBy,
 		)
 		if err != nil {
 			return err
