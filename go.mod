@@ -6,7 +6,7 @@ replace github.com/gnames/coldp => ../coldp
 
 require (
 	github.com/gnames/coldp v0.1.0
-	github.com/gnames/gnfmt v0.5.2
+	github.com/gnames/gnfmt v0.5.3
 	github.com/gnames/gnlib v0.44.0
 	github.com/gnames/gnsys v0.3.4
 	github.com/lmittmann/tint v1.0.5

@@ -23,7 +23,11 @@ func New(cfg config.Config, sfgarc sfgarc.Archive) FromCoLDP {
 
 // GetCoLDP reads a CoLDP Archive from a file, preparing it for ingestion.
 func (fc *fcoldp) GetCoLDP(path string) (coldp.Archive, error) {
-	cfg := coldpConfig.New()
+	opts := []coldpConfig.Option{
+		coldpConfig.OptWithQuotes(fc.cfg.WithQuotes),
+		coldpConfig.OptBadRow(fc.cfg.BadRow),
+	}
+	cfg := coldpConfig.New(opts...)
 	c := arcio.New(cfg, path)
 	// Resets cache for coldp working dir
 	err := c.ResetCache()
@@ -58,5 +62,10 @@ func (fc *fcoldp) ImportCoLDP(c coldp.Archive) error {
 
 // ExportSFGA writes a Species File Group Archive to a file.
 func (fc *fcoldp) ExportSFGA(outputPath string) error {
+	err := fc.s.Export(outputPath)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

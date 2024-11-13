@@ -117,8 +117,8 @@ github.com/fatih/color v1.17.0/go.mod h1:YZ7TlrGPkiz6ku9fK3TLD/pl3CpsiFyu8N92HLg
 github.com/fsnotify/fsnotify v1.5.1 h1:mZcQUHVQUQWoPXXtuf9yuEXKudkV2sx1E06UadKWpgI=
 github.com/fsnotify/fsnotify v1.5.1/go.mod h1:T3375wBYaZdLLcVNkcVbzGHY7f1l/uK5T5Ai1i3InKU=
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
-github.com/gnames/gnfmt v0.5.2 h1:MD2FlNV59iqNrv+alS2iLKn0CzRaNRc8miWtg1mDQZc=
-github.com/gnames/gnfmt v0.5.2/go.mod h1:fAX78TlB0ECBRiZRQ2HTpVPwzWkwkIe32Pf/rUu7QmM=
+github.com/gnames/gnfmt v0.5.3 h1:j8PxXy78EIjDTCTioNq53qihVyFl0nNrPAj0+vKTR6E=
+github.com/gnames/gnfmt v0.5.3/go.mod h1:fAX78TlB0ECBRiZRQ2HTpVPwzWkwkIe32Pf/rUu7QmM=
 github.com/gnames/gnlib v0.44.0 h1:nIvVW9+iO+BJFGEvo9zVSer9xz0DM6WlLt6SU7IdDFY=
 github.com/gnames/gnlib v0.44.0/go.mod h1:Om7iEOZmSXapYwxriIxxCNR4aPYsrCVdtzJAX7TY15E=
 github.com/gnames/gnsys v0.3.4 h1:cNYY1+ElEMuQmqYeHip+LSbpyfLQsyMUCVpmKaS0d8c=

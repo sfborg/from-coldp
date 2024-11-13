@@ -44,6 +44,13 @@ func zipFlag(cmd *cobra.Command) {
 	}
 }
 
+func quotesFlag(cmd *cobra.Command) {
+	b, _ := cmd.Flags().GetBool("quotes-in-csv")
+	if b {
+		opts = append(opts, config.OptWithQuotes(b))
+	}
+}
+
 func jobsNumFlag(cmd *cobra.Command) {
 	jobs, _ := cmd.Flags().GetInt("jobs-number")
 	if jobs > 0 {
@@ -70,11 +77,11 @@ func fieldsNumFlag(cmd *cobra.Command) {
 	case "":
 		return
 	case "stop":
-		opts = append(opts, config.OptWrongFieldsNum(gnfmt.ErrorBadRow))
+		opts = append(opts, config.OptBadRow(gnfmt.ErrorBadRow))
 	case "ignore":
-		opts = append(opts, config.OptWrongFieldsNum(gnfmt.SkipBadRow))
+		opts = append(opts, config.OptBadRow(gnfmt.SkipBadRow))
 	case "process":
-		opts = append(opts, config.OptWrongFieldsNum(gnfmt.ProcessBadRow))
+		opts = append(opts, config.OptBadRow(gnfmt.ProcessBadRow))
 	default:
 		slog.Warn("Unknown setting for wrong-fields-num, keeping default",
 			"setting", s)

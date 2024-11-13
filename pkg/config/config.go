@@ -14,10 +14,10 @@ var (
 	repoURL = "https://github.com/sfborg/sfga"
 
 	// tag of the sfga repo to get correct schema version.
-	repoTag = "v0.3.12"
+	repoTag = "v0.3.13"
 
 	// schemaHash is the sha256 sum of the correponding schema version.
-	schemaHash = "76103d53fbe22"
+	schemaHash = "e401f68f96"
 
 	// jobsNum is the default number of concurrent jobs to run.
 	jobsNum = 5
@@ -47,9 +47,9 @@ type Config struct {
 	// BatchSize is the number of records to insert in one transaction.
 	BatchSize int
 
-	// WrongFieldsNum dets decision what to do if a row has more/less fields
+	// BadRow dets decision what to do if a row has more/less fields
 	// than it should.
-	WrongFieldsNum gnfmt.BadRow
+	BadRow gnfmt.BadRow
 
 	// WithBinOutput is a flag to output binary SQLite database instead of
 	// SQL dump.
@@ -57,6 +57,10 @@ type Config struct {
 
 	// WithZipOutput is a flag to return zipped SFGAarchive outpu.
 	WithZipOutput bool
+
+	// WithQuotes tells that coldp file has `"` to escape new lines and
+	// delimiters inside fields. If true, RFC-based CSV algorithm is used.
+	WithQuotes bool
 }
 
 // Option is a function type that allows to standardize how options to
@@ -92,9 +96,9 @@ func OptJobsNum(n int) Option {
 	}
 }
 
-func OptWrongFieldsNum(br gnfmt.BadRow) Option {
+func OptBadRow(br gnfmt.BadRow) Option {
 	return func(c *Config) {
-		c.WrongFieldsNum = br
+		c.BadRow = br
 	}
 }
 
@@ -109,6 +113,15 @@ func OptWithBinOutput(b bool) Option {
 func OptWithZipOutput(b bool) Option {
 	return func(c *Config) {
 		c.WithZipOutput = b
+	}
+}
+
+// OptWithQuotes tells reader that CoLDP file uses quotes in CSV to help
+// data integrity when a field contains either new lines, or designated
+// field delimiters.
+func OptWithQuotes(b bool) Option {
+	return func(c *Config) {
+		c.WithQuotes = b
 	}
 }
 
@@ -130,11 +143,11 @@ func New(opts ...Option) Config {
 			Tag:          repoTag,
 			ShaSchemaSQL: schemaHash,
 		},
-		TempRepoDir:    schemaRepo,
-		CacheDir:       path,
-		JobsNum:        jobsNum,
-		BatchSize:      50_000,
-		WrongFieldsNum: gnfmt.ErrorBadRow,
+		TempRepoDir: schemaRepo,
+		CacheDir:    path,
+		JobsNum:     jobsNum,
+		BatchSize:   50_000,
+		BadRow:      gnfmt.ErrorBadRow,
 	}
 
 	for _, opt := range opts {

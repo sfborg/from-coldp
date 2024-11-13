@@ -49,7 +49,8 @@ var rootCmd = &cobra.Command{
 		var err error
 		versionFlag(cmd)
 		flags := []flagFunc{
-			debugFlag, cacheDirFlag, jobsNumFlag, binFlag, zipFlag, fieldsNumFlag,
+			debugFlag, cacheDirFlag, jobsNumFlag, binFlag, zipFlag, quotesFlag,
+			fieldsNumFlag,
 		}
 		for _, v := range flags {
 			v(cmd)
@@ -95,7 +96,6 @@ var rootCmd = &cobra.Command{
 			slog.Error("Cannot get CoLDP Archive", "error", err)
 			os.Exit(1)
 		}
-		_ = arc
 
 		slog.Info("Exporting data to SQLite")
 		err = fc.ImportCoLDP(arc)
@@ -103,15 +103,15 @@ var rootCmd = &cobra.Command{
 			slog.Error("Cannot export data", "error", err)
 			os.Exit(1)
 		}
-		//
-		// slog.Info("Making SFGArchive")
-		// err = fd.ExportSFGA(outputPath)
-		// if err != nil {
-		// 	slog.Error("Cannot dump data", "error", err)
-		// 	os.Exit(1)
-		// }
-		//
-		// slog.Info("CoLDP data has been imported successfully")
+
+		slog.Info("Making SFGArchive")
+		err = fc.ExportSFGA(outputPath)
+		if err != nil {
+			slog.Error("Cannot dump data", "error", err)
+			os.Exit(1)
+		}
+
+		slog.Info("CoLDP data has been imported successfully")
 	},
 }
 
@@ -134,5 +134,7 @@ func init() {
 	rootCmd.Flags().IntP("jobs-number", "j", 0, "number of concurrent jobs")
 	rootCmd.Flags().BoolP("binary-output", "b", false, "return binary SQLite database")
 	rootCmd.Flags().BoolP("zip-output", "z", false, "compress output with zip")
+	rootCmd.Flags().
+		BoolP("quotes-in-csv", "q", false, "some fields in TSV files are surrounded by quotes")
 	rootCmd.Flags().BoolP("version", "V", false, "shows app's version")
 }
