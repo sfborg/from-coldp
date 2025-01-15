@@ -9,17 +9,24 @@ import (
 
 func (fc *fcoldp) importData(c coldp.Archive) error {
 	var err error
+	var hasRefs bool
 	paths := c.DataPaths()
 
-	if res, ok := paths[coldp.AuthorDT]; ok {
-		slog.Info("Importing Authors")
-		if err = importData(fc, res, c, insertAuthors); err != nil {
-			return err
-		}
-	}
 	if res, ok := paths[coldp.ReferenceDT]; ok {
 		slog.Info("Importing References")
 		if err = importData(fc, res, c, insertReferences); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.ReferenceJsonDT]; ok && !hasRefs {
+		slog.Info("Importing References")
+		if err = importData(fc, res, c, insertReferences); err != nil {
+			return err
+		}
+	}
+	if res, ok := paths[coldp.AuthorDT]; ok {
+		slog.Info("Importing Authors")
+		if err = importData(fc, res, c, insertAuthors); err != nil {
 			return err
 		}
 	}

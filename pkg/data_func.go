@@ -2,6 +2,7 @@ package fcoldp
 
 import (
 	"context"
+	"path/filepath"
 
 	"github.com/gnames/coldp/ent/coldp"
 	"github.com/sfborg/from-coldp/internal/ent/sfgarc"
@@ -14,6 +15,7 @@ func importData[T coldp.DataLoader](
 	c coldp.Archive,
 	insertFunc func(sfgarc.Archive, []T) error) error {
 	chIn := make(chan T)
+	var err error
 
 	ctx, cancel := context.WithCancel(context.Background())
 	g, ctx := errgroup.WithContext(ctx)
@@ -23,10 +25,26 @@ func importData[T coldp.DataLoader](
 		return insert(fc.s, fc.cfg.BatchSize, chIn, insertFunc)
 	})
 
-	err := coldp.Read(c.Config(), path, chIn)
-	if err != nil {
-		return err
+	ext := filepath.Ext(path)
+
+	switch ext {
+	case ".json":
+		err = coldp.ReadJSON(path, chIn)
+		if err != nil {
+			return err
+		}
+	case ".jsonl":
+		err = coldp.ReadJSONL(path, chIn)
+		if err != nil {
+			return err
+		}
+	default:
+		err = coldp.Read(c.Config(), path, chIn)
+		if err != nil {
+			return err
+		}
 	}
+	close(chIn)
 	if err = g.Wait(); err != nil {
 		return err
 	}
@@ -47,7 +65,7 @@ func insert[T coldp.DataLoader](
 	for n := range ch {
 		count++
 		names = append(names, n)
-		if count == batchSize {
+		if count >= batchSize {
 			err = insertFunc(s, names)
 			count = 0
 			names = names[:0]

@@ -2,6 +2,8 @@ module github.com/sfborg/from-coldp
 
 go 1.23.3
 
+replace github.com/gnames/coldp => ../coldp
+
 require (
 	github.com/gnames/coldp v0.2.0
 	github.com/gnames/gnfmt v0.5.3

@@ -1,6 +1,8 @@
 package sfgarcio
 
-import "github.com/gnames/coldp/ent/coldp"
+import (
+	"github.com/gnames/coldp/ent/coldp"
+)
 
 func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 	tx, err := s.db.Begin()
@@ -11,7 +13,7 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 	INSERT INTO vernacular
 		(
 			taxon_id, source_id, name, transliteration, language, preferred,
-	   	country, area, sex, reference_id, remarks, modified,
+	   	country, area, sex_id, reference_id, remarks, modified,
 	  	modified_by
 		)
 	VALUES (?,?,?,?,?,?, ?,?,?,?,?,?, ?)
