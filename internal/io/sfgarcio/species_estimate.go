@@ -1,6 +1,10 @@
 package sfgarcio
 
-import "github.com/gnames/coldp/ent/coldp"
+import (
+	"log/slog"
+
+	"github.com/gnames/coldp/ent/coldp"
+)
 
 func (s *sfgarcio) InsertSpeciesEstimates(data []coldp.SpeciesEstimate) error {
 	tx, err := s.db.Begin()
@@ -9,6 +13,7 @@ func (s *sfgarcio) InsertSpeciesEstimates(data []coldp.SpeciesEstimate) error {
 	}
 	defer func() {
 		if err != nil {
+			slog.Error("Cannot finish transaction", "error", err)
 			tx.Rollback()
 		}
 	}()

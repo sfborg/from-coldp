@@ -1,6 +1,10 @@
 package sfgarcio
 
-import "github.com/gnames/coldp/ent/coldp"
+import (
+	"log/slog"
+
+	"github.com/gnames/coldp/ent/coldp"
+)
 
 func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 	tx, err := s.db.Begin()
@@ -9,6 +13,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 	}
 	defer func() {
 		if err != nil {
+			slog.Error("Cannot finish transaction", "error", err)
 			tx.Rollback()
 		}
 	}()
@@ -50,10 +55,11 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 		basionym_authorship_year, code_id, status_id, reference_id,
 		published_in_year, published_in_page, published_in_page_link,
 		gender_id, gender_agreement, etymology,
-		link, remarks, modified, modified_by
+		link, remarks, modified, modified_by,
+		gn_full_scientific_name
 		)
 	VALUES (?,?,?,?,?, ?,?,?,?, ?,?,?, ?,?,?, ?,?, ?,?, ?,?, ?,?, ?,?,?,?, ?,?,?,
-		?,?,?, ?,?,?,?) 
+		?,?,?, ?,?,?,?, ?) 
 `)
 	if err != nil {
 		return err
@@ -86,6 +92,11 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 			return err
 		}
 
+		gsn := d.ScientificName
+		if d.Authorship != "" {
+			gsn = gsn + " " + d.Authorship
+		}
+
 		_, err = nStmt.Exec(
 			d.ID, d.NameAlternativeID, d.SourceID, d.ScientificName, d.Authorship,
 			d.Rank, d.Uninomial, d.GenericName, d.InfragenericEpithet,
@@ -99,6 +110,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 			d.PublishedInYear, d.PublishedInPage, d.PublishedInPageLink,
 			d.Gender, d.GenderAgreement, d.Etymology,
 			d.Link, d.NameRemarks, d.Modified, d.ModifiedBy,
+			gsn,
 		)
 
 		if d.BasionymID == "" {

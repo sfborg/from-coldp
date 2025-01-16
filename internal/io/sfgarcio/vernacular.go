@@ -1,6 +1,8 @@
 package sfgarcio
 
 import (
+	"log/slog"
+
 	"github.com/gnames/coldp/ent/coldp"
 )
 
@@ -11,6 +13,7 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 	}
 	defer func() {
 		if err != nil {
+			slog.Error("Cannot finish transaction", "error", err)
 			tx.Rollback()
 		}
 	}()
