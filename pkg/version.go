@@ -2,7 +2,7 @@ package fcoldp
 
 import "github.com/gnames/gnlib/ent/gnvers"
 
-var Version = "v0.0.1"
+var Version = "v0.5.0"
 var Build = "n/a"
 
 // GetVersion returns BHLnames version and build information.

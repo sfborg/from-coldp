@@ -5,8 +5,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v0.0.1] - 2024-03-15 Fri
+## [v0.5.0] - 2025-01-16 Thu
 
+Add: update modules
+Add: sucessful import of Catalogue of Life official CoLDP.
+Add: NameUsage import.
+Add: JSON for references.
+Add: option for quotes.
+Add: allow tsv files to have quotes.
+Fix: inserts.
+Add [#7]: parse JSON for metadata.
+Add [#6]: inserts for all tables.
+Add: inserts.
+Add: empties for data import.
+Add: update sfga.
 Add [#5]: import Data.
 Add [#4]: import Metadata.
 Add [#3]: extract CoLDP archive (local or remote).
