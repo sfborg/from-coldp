@@ -7,6 +7,12 @@ func (s *sfgarcio) InsertTaxa(data []coldp.Taxon) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO taxon
 		(
@@ -15,19 +21,20 @@ func (s *sfgarcio) InsertTaxa(data []coldp.Taxon) error {
 		according_to_page_link, scrutinizer, scrutinizer_id,
 		scrutinizer_date, provisional, reference_id, extinct,
 		temporal_range_start_id, temporal_range_end_id,
-		environment_id, species, section, subgenus, subtribe,
+		environment_id, species, section, subgenus, genus, subtribe,
 		tribe, subfamily, family, superfamily, suborder, "order",
 		subclass, class, subphylum, phylum, kingdom,
 		link, remarks, modified, modified_by
 		)
 	VALUES (
-		?,?,?,?,?,?, ?,?,?,?, ?,?,?, ?,?,?,?, ?,?, ?,?,?,?,?, 
+		?,?,?,?,?,?, ?,?,?,?, ?,?,?, ?,?,?,?, ?,?, ?,?,?,?,?,?,
 		?,?,?,?,?,?, ?,?,?,?,?, ?,?,?,?
 		)
 `)
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, t := range data {
 		_, err = stmt.Exec(
@@ -46,6 +53,5 @@ func (s *sfgarcio) InsertTaxa(data []coldp.Taxon) error {
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

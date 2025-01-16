@@ -7,6 +7,12 @@ func (s *sfgarcio) InsertTreatments(data []coldp.Treatment) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO treatment
 		(
@@ -17,6 +23,7 @@ func (s *sfgarcio) InsertTreatments(data []coldp.Treatment) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, n := range data {
 		_, err = stmt.Exec(
@@ -27,6 +34,5 @@ func (s *sfgarcio) InsertTreatments(data []coldp.Treatment) error {
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

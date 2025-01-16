@@ -7,6 +7,12 @@ func (s *sfgarcio) InsertNames(data []coldp.Name) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO name
 		(
@@ -26,6 +32,10 @@ func (s *sfgarcio) InsertNames(data []coldp.Name) error {
 	VALUES (?,?,?,?,?, ?,?,?,?, ?,?,?, ?,?,?, ?,?, ?,?, ?,?, ?,?, ?,?,?,?, ?,?,?,
 		?,?,?, ?,?,?,?) 
 `)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
 
 	basStmt, err := tx.Prepare(`
 	INSERT INTO name_relation
@@ -35,6 +45,7 @@ func (s *sfgarcio) InsertNames(data []coldp.Name) error {
 	if err != nil {
 		return err
 	}
+	defer basStmt.Close()
 
 	for _, n := range data {
 		_, err = stmt.Exec(
@@ -61,8 +72,10 @@ func (s *sfgarcio) InsertNames(data []coldp.Name) error {
 		basStmt.Exec(
 			n.ID, n.BasionymID, coldp.Basionym.String(),
 		)
+		if err != nil {
+			return err
+		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

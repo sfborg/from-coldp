@@ -7,6 +7,12 @@ func (s *sfgarcio) InsertSynonyms(data []coldp.Synonym) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO synonym
 	(
@@ -19,6 +25,7 @@ func (s *sfgarcio) InsertSynonyms(data []coldp.Synonym) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, d := range data {
 		_, err = stmt.Exec(
@@ -31,6 +38,5 @@ func (s *sfgarcio) InsertSynonyms(data []coldp.Synonym) error {
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

@@ -9,6 +9,12 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO vernacular
 		(
@@ -21,6 +27,7 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, d := range data {
 		var pref int
@@ -37,6 +44,5 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

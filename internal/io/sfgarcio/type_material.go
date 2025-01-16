@@ -7,6 +7,12 @@ func (s *sfgarcio) InsertTypeMaterials(data []coldp.TypeMaterial) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO type_material
 		(
@@ -21,6 +27,7 @@ func (s *sfgarcio) InsertTypeMaterials(data []coldp.TypeMaterial) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, n := range data {
 		_, err = stmt.Exec(
@@ -35,6 +42,5 @@ func (s *sfgarcio) InsertTypeMaterials(data []coldp.TypeMaterial) error {
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

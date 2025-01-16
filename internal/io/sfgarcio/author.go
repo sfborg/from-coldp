@@ -1,12 +1,20 @@
 package sfgarcio
 
-import "github.com/gnames/coldp/ent/coldp"
+import (
+	"github.com/gnames/coldp/ent/coldp"
+)
 
 func (s *sfgarcio) InsertAuthors(data []coldp.Author) error {
 	tx, err := s.db.Begin()
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO author
 		(
@@ -20,6 +28,7 @@ func (s *sfgarcio) InsertAuthors(data []coldp.Author) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, n := range data {
 		_, err = stmt.Exec(
@@ -33,6 +42,5 @@ func (s *sfgarcio) InsertAuthors(data []coldp.Author) error {
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

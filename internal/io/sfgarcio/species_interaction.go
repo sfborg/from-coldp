@@ -9,6 +9,12 @@ func (s *sfgarcio) InsertSpeciesInteractions(
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO species_interaction
 		(
@@ -20,6 +26,7 @@ func (s *sfgarcio) InsertSpeciesInteractions(
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, n := range data {
 		_, err = stmt.Exec(
@@ -31,6 +38,5 @@ func (s *sfgarcio) InsertSpeciesInteractions(
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }

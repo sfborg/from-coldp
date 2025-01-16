@@ -7,6 +7,12 @@ func (s *sfgarcio) InsertMedia(data []coldp.Media) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		}
+	}()
+
 	stmt, err := tx.Prepare(`
 	INSERT INTO media
 		(
@@ -18,6 +24,7 @@ func (s *sfgarcio) InsertMedia(data []coldp.Media) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	for _, n := range data {
 		_, err = stmt.Exec(
@@ -29,6 +36,5 @@ func (s *sfgarcio) InsertMedia(data []coldp.Media) error {
 		}
 	}
 
-	stmt.Close()
 	return tx.Commit()
 }
