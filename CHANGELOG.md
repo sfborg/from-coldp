@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.1] - 2025-01-19 Sun
+
+Add: output has both binary and sql dump.
+Fix: NameUsage import.
+
 ## [v0.5.0] - 2025-01-16 Thu
 
 Add: update modules
@@ -33,7 +38,8 @@ Add: initial commit
 
 This document follows [changelog guidelines]
 
-[v0.0.1]: https://github.com/sfborg/from-coldp/compare/v0.0.0...v0.0.1
+[v0.5.1]: https://github.com/sfborg/from-coldp/compare/v0.5.0...v0.5.1
+[v0.5.0]: https://github.com/sfborg/from-coldp/compare/v0.0.0...v0.5.0
 [v0.0.0]: https://github.com/sfborg/from-coldp/tree/v0.0.0
 [#20]: https://github.com/sfborg/from-coldp/issues/20
 [#19]: https://github.com/sfborg/from-coldp/issues/19

@@ -30,13 +30,6 @@ func cacheDirFlag(cmd *cobra.Command) {
 	}
 }
 
-func binFlag(cmd *cobra.Command) {
-	b, _ := cmd.Flags().GetBool("binary-output")
-	if b {
-		opts = append(opts, config.OptWithBinOutput(b))
-	}
-}
-
 func zipFlag(cmd *cobra.Command) {
 	b, _ := cmd.Flags().GetBool("zip-output")
 	if b {

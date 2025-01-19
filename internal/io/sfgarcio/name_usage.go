@@ -66,6 +66,18 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 	}
 	defer nStmt.Close()
 
+	sStmt, err := tx.Prepare(`
+	INSERT INTO synonym
+	  (
+		id, taxon_id, source_id, name_id, name_phrase, according_to_id,
+		status_id, reference_id, link, remarks, modified, modified_by
+	  )
+	VALUES (?,?,?,?,?,?, ?,?,?,?,?,?)`)
+	if err != nil {
+		return err
+	}
+	defer sStmt.Close()
+
 	basStmt, err := tx.Prepare(`
 	INSERT INTO name_relation
 		(name_id, related_name_id, type_id)
@@ -77,19 +89,31 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 	defer basStmt.Close()
 
 	for _, d := range data {
-		_, err = tStmt.Exec(
-			d.ID, d.AlternativeID, d.SourceID, d.ParentID, d.Ordinal, d.BranchLength,
-			d.ID, d.NamePhrase, d.AccordingToID, d.AccordingToPage,
-			d.AccordingToPageLink, d.Scrutinizer, d.ScrutinizerID,
-			d.ScrutinizerDate, d.ReferenceID, d.Extinct,
-			d.TemporalRangeStart, d.TemporalRangeEnd,
-			d.Environment, d.Species, d.Section, d.Subgenus, d.Genus, d.Subtribe,
-			d.Tribe, d.Subfamily, d.Family, d.Superfamily, d.Suborder, d.Order,
-			d.Subclass, d.Class, d.Subphylum, d.Phylum, d.Kingdom,
-			d.Link, d.Remarks, d.Modified, d.ModifiedBy,
-		)
-		if err != nil {
-			return err
+		switch d.TaxonomicStatus {
+		case coldp.SynonymTS, coldp.AmbiguousSynonymTS, coldp.MisappliedTS:
+			_, err = sStmt.Exec(
+				d.ID, d.ParentID, d.SourceID, d.ID, d.NamePhrase, d.AccordingToID,
+				d.TaxonomicStatus, d.ReferenceID, d.Link, d.NameRemarks,
+				d.Modified, d.ModifiedBy,
+			)
+			if err != nil {
+				return err
+			}
+		default:
+			_, err = tStmt.Exec(
+				d.ID, d.AlternativeID, d.SourceID, d.ParentID, d.Ordinal, d.BranchLength,
+				d.ID, d.NamePhrase, d.AccordingToID, d.AccordingToPage,
+				d.AccordingToPageLink, d.Scrutinizer, d.ScrutinizerID,
+				d.ScrutinizerDate, d.ReferenceID, d.Extinct,
+				d.TemporalRangeStart, d.TemporalRangeEnd,
+				d.Environment, d.Species, d.Section, d.Subgenus, d.Genus, d.Subtribe,
+				d.Tribe, d.Subfamily, d.Family, d.Superfamily, d.Suborder, d.Order,
+				d.Subclass, d.Class, d.Subphylum, d.Phylum, d.Kingdom,
+				d.Link, d.Remarks, d.Modified, d.ModifiedBy,
+			)
+			if err != nil {
+				return err
+			}
 		}
 
 		gsn := d.ScientificName

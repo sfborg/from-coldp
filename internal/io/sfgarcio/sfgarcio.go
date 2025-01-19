@@ -59,15 +59,12 @@ func (s *sfgarcio) Export(outPath string) error {
 
 	outPath = trimExtentions(outPath)
 
-	// Determine the desired file extension based on configuration
-	ext := ".sql"
-	if s.cfg.WithBinOutput {
-		ext = ".sqlite"
-	}
-	outPath += ext
-
 	// Perform the export
-	err := s.sfdb.Export(outPath, s.cfg.WithBinOutput, s.cfg.WithZipOutput)
+	err := s.sfdb.Export(outPath+".sql", false, s.cfg.WithZipOutput)
+	if err != nil {
+		return err
+	}
+	err = s.sfdb.Export(outPath+".sqlite", true, s.cfg.WithZipOutput)
 	if err != nil {
 		return err
 	}

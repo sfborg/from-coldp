@@ -14,10 +14,10 @@ var (
 	repoURL = "https://github.com/sfborg/sfga"
 
 	// tag of the sfga repo to get correct schema version.
-	repoTag = "v0.3.14"
+	repoTag = "v0.3.18"
 
 	// schemaHash is the sha256 sum of the correponding schema version.
-	schemaHash = "1e53de25f6f4"
+	schemaHash = "bc5379b0bb5e5d3"
 	// jobsNum is the default number of concurrent jobs to run.
 	jobsNum = 5
 )
@@ -49,10 +49,6 @@ type Config struct {
 	// BadRow dets decision what to do if a row has more/less fields
 	// than it should.
 	BadRow gnfmt.BadRow
-
-	// WithBinOutput is a flag to output binary SQLite database instead of
-	// SQL dump.
-	WithBinOutput bool
 
 	// WithZipOutput is a flag to return zipped SFGAarchive outpu.
 	WithZipOutput bool
@@ -98,13 +94,6 @@ func OptJobsNum(n int) Option {
 func OptBadRow(br gnfmt.BadRow) Option {
 	return func(c *Config) {
 		c.BadRow = br
-	}
-}
-
-// OptWithBinOutput sets output as binary SQLite file.
-func OptWithBinOutput(b bool) Option {
-	return func(c *Config) {
-		c.WithBinOutput = b
 	}
 }
 

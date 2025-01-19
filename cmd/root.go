@@ -24,7 +24,6 @@ package cmd
 import (
 	"log/slog"
 	"os"
-	"path/filepath"
 
 	"github.com/gnames/coldp/ent/coldp"
 	"github.com/sfborg/from-coldp/internal/io/sfgarcio"
@@ -49,7 +48,7 @@ var rootCmd = &cobra.Command{
 		var err error
 		versionFlag(cmd)
 		flags := []flagFunc{
-			debugFlag, cacheDirFlag, jobsNumFlag, binFlag, zipFlag, quotesFlag,
+			debugFlag, cacheDirFlag, jobsNumFlag, zipFlag, quotesFlag,
 			fieldsNumFlag,
 		}
 		for _, v := range flags {
@@ -64,11 +63,6 @@ var rootCmd = &cobra.Command{
 		slog.Info("Converting CoLDP to SFGA")
 		coldpPath := args[0]
 		outputPath := args[1]
-
-		ext := filepath.Ext(outputPath)
-		if ext == ".sqlite" {
-			opts = append(opts, config.OptWithBinOutput(true))
-		}
 
 		cfg := config.New(opts...)
 		err = sysio.New(cfg).ResetCache()
@@ -132,7 +126,6 @@ func init() {
      choices: 'stop', 'skip', 'process'
      default: 'stop'`)
 	rootCmd.Flags().IntP("jobs-number", "j", 0, "number of concurrent jobs")
-	rootCmd.Flags().BoolP("binary-output", "b", false, "return binary SQLite database")
 	rootCmd.Flags().BoolP("zip-output", "z", false, "compress output with zip")
 	rootCmd.Flags().
 		BoolP("quotes-in-csv", "q", false, "some fields in TSV files are surrounded by quotes")
