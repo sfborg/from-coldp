@@ -123,7 +123,7 @@ func init() {
 	rootCmd.Flags().StringP("cache-dir", "c", "", "cache directory for temporary files")
 	rootCmd.Flags().StringP("wrong-fields-num", "w", "",
 		`how to process rows with wrong fields number
-     choices: 'stop', 'skip', 'process'
+     choices: 'stop', 'ignore', 'process'
      default: 'stop'`)
 	rootCmd.Flags().IntP("jobs-number", "j", 0, "number of concurrent jobs")
 	rootCmd.Flags().BoolP("zip-output", "z", false, "compress output with zip")
