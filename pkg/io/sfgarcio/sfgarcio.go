@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sfborg/from-coldp/internal/ent/sfgarc"
 	"github.com/sfborg/from-coldp/pkg/config"
+	"github.com/sfborg/from-coldp/pkg/ent/sfgarc"
 	"github.com/sfborg/sflib/ent/sfga"
 )
 

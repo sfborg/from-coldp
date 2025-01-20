@@ -4,7 +4,7 @@ import (
 	"log/slog"
 
 	"github.com/gnames/coldp/ent/coldp"
-	"github.com/sfborg/from-coldp/internal/ent/sfgarc"
+	"github.com/sfborg/from-coldp/pkg/ent/sfgarc"
 )
 
 func (fc *fcoldp) importData(c coldp.Archive) error {

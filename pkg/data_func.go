@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/gnames/coldp/ent/coldp"
-	"github.com/sfborg/from-coldp/internal/ent/sfgarc"
+	"github.com/sfborg/from-coldp/pkg/ent/sfgarc"
 	"golang.org/x/sync/errgroup"
 )
 

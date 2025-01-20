@@ -4,8 +4,8 @@ import (
 	"os"
 
 	"github.com/gnames/gnsys"
-	"github.com/sfborg/from-coldp/internal/ent/sys"
 	"github.com/sfborg/from-coldp/pkg/config"
+	"github.com/sfborg/from-coldp/pkg/ent/sys"
 )
 
 type sysio struct {

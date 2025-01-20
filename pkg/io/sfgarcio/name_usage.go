@@ -93,7 +93,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 		case coldp.SynonymTS, coldp.AmbiguousSynonymTS, coldp.MisappliedTS:
 			_, err = sStmt.Exec(
 				d.ID, d.ParentID, d.SourceID, d.ID, d.NamePhrase, d.AccordingToID,
-				d.TaxonomicStatus, d.ReferenceID, d.Link, d.NameRemarks,
+				d.TaxonomicStatus.String(), d.ReferenceID, d.Link, d.NameRemarks,
 				d.Modified, d.ModifiedBy,
 			)
 			if err != nil {
@@ -105,7 +105,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 				d.ID, d.NamePhrase, d.AccordingToID, d.AccordingToPage,
 				d.AccordingToPageLink, d.Scrutinizer, d.ScrutinizerID,
 				d.ScrutinizerDate, d.ReferenceID, d.Extinct,
-				d.TemporalRangeStart, d.TemporalRangeEnd,
+				d.TemporalRangeStart.String(), d.TemporalRangeEnd.String(),
 				d.Environment, d.Species, d.Section, d.Subgenus, d.Genus, d.Subtribe,
 				d.Tribe, d.Subfamily, d.Family, d.Superfamily, d.Suborder, d.Order,
 				d.Subclass, d.Class, d.Subphylum, d.Phylum, d.Kingdom,
@@ -116,25 +116,20 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 			}
 		}
 
-		gsn := d.ScientificName
-		if d.Authorship != "" {
-			gsn = gsn + " " + d.Authorship
-		}
-
 		_, err = nStmt.Exec(
 			d.ID, d.NameAlternativeID, d.SourceID, d.ScientificName, d.Authorship,
-			d.Rank, d.Uninomial, d.GenericName, d.InfragenericEpithet,
+			d.Rank.String(), d.Uninomial, d.GenericName, d.InfragenericEpithet,
 			d.SpecificEpithet, d.InfraspecificEpithet, d.CultivarEpithet,
-			d.Notho, d.OriginalSpelling, d.CombinationAuthorship,
+			d.Notho.String(), d.OriginalSpelling, d.CombinationAuthorship,
 			d.CombinationAuthorshipID, d.CombinationExAuthorship,
 			d.CombinationExAuthorshipID, d.CombinationAuthorshipYear,
 			d.BasionymAuthorship, d.BasionymAuthorshipID,
 			d.BasionymExAuthorship, d.BasionymExAuthorshipID,
-			d.BasionymAuthorshipYear, d.Code, d.NameStatus, d.NameReferenceID,
+			d.BasionymAuthorshipYear, d.Code.String(), d.NameStatus.String(), d.NameReferenceID,
 			d.PublishedInYear, d.PublishedInPage, d.PublishedInPageLink,
-			d.Gender, d.GenderAgreement, d.Etymology,
+			d.Gender.String(), d.GenderAgreement, d.Etymology,
 			d.Link, d.NameRemarks, d.Modified, d.ModifiedBy,
-			gsn,
+			d.FullScientificName,
 		)
 
 		if d.BasionymID == "" {

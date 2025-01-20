@@ -26,10 +26,10 @@ import (
 	"os"
 
 	"github.com/gnames/coldp/ent/coldp"
-	"github.com/sfborg/from-coldp/internal/io/sfgarcio"
-	"github.com/sfborg/from-coldp/internal/io/sysio"
 	fcoldp "github.com/sfborg/from-coldp/pkg"
 	"github.com/sfborg/from-coldp/pkg/config"
+	"github.com/sfborg/from-coldp/pkg/io/sfgarcio"
+	"github.com/sfborg/from-coldp/pkg/io/sysio"
 	"github.com/sfborg/sflib/io/dbio"
 	"github.com/sfborg/sflib/io/schemaio"
 	"github.com/spf13/cobra"

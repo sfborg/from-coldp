@@ -47,7 +47,7 @@ func (s *sfgarcio) InsertTaxa(data []coldp.Taxon) error {
 			t.NameID, t.NamePhrase, t.AccordingToID, t.AccordingToPage,
 			t.AccordingToPageLink, t.Scrutinizer, t.ScrutinizerID,
 			t.ScrutinizerDate, t.Provisional, t.ReferenceID, t.Extinct,
-			t.TemporalRangeStart, t.TemporalRangeEnd,
+			t.TemporalRangeStart.String(), t.TemporalRangeEnd.String(),
 			t.Environment, t.Species, t.Section, t.Subgenus, t.Genus, t.Subtribe,
 			t.Tribe, t.Subfamily, t.Family, t.Superfamily, t.Suborder, t.Order,
 			t.Subclass, t.Class, t.Subphylum, t.Phylum, t.Kingdom,

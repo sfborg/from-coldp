@@ -4,8 +4,8 @@ import (
 	coldpConfig "github.com/gnames/coldp/config"
 	"github.com/gnames/coldp/ent/coldp"
 	"github.com/gnames/coldp/io/arcio"
-	"github.com/sfborg/from-coldp/internal/ent/sfgarc"
 	"github.com/sfborg/from-coldp/pkg/config"
+	"github.com/sfborg/from-coldp/pkg/ent/sfgarc"
 )
 
 type fcoldp struct {
