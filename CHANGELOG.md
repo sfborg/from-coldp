@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.3] - 2025-01-23 Thu
+
+Add: rename FullScientificName to ScientificNameString.
+
 ## [v0.5.2] - 2025-01-20 Mon
 
 Add: make entities and io public.

@@ -1,14 +1,14 @@
 module github.com/sfborg/from-coldp
 
-go 1.23.3
+go 1.23.4
 
 require (
-	github.com/gnames/coldp v0.3.1
+	github.com/gnames/coldp v0.3.2
 	github.com/gnames/gnfmt v0.5.3
 	github.com/gnames/gnlib v0.44.0
 	github.com/gnames/gnsys v0.3.4
 	github.com/lmittmann/tint v1.0.6
-	github.com/sfborg/sflib v0.1.6
+	github.com/sfborg/sflib v0.1.7
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/cobra-cli v1.3.0
 	github.com/stretchr/testify v1.10.0
@@ -17,7 +17,7 @@ require (
 
 require (
 	github.com/VividCortex/ewma v1.2.0 // indirect
-	github.com/cheggaaa/pb/v3 v3.1.5 // indirect
+	github.com/cheggaaa/pb/v3 v3.1.6 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fatih/color v1.18.0 // indirect

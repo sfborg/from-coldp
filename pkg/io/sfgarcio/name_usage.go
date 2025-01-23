@@ -56,7 +56,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 		published_in_year, published_in_page, published_in_page_link,
 		gender_id, gender_agreement, etymology,
 		link, remarks, modified, modified_by,
-		gn_full_scientific_name
+		gn_scientific_name_string
 		)
 	VALUES (?,?,?,?,?, ?,?,?,?, ?,?,?, ?,?,?, ?,?, ?,?, ?,?, ?,?, ?,?,?,?, ?,?,?,
 		?,?,?, ?,?,?,?, ?) 
@@ -129,7 +129,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 			d.PublishedInYear, d.PublishedInPage, d.PublishedInPageLink,
 			d.Gender.String(), d.GenderAgreement, d.Etymology,
 			d.Link, d.NameRemarks, d.Modified, d.ModifiedBy,
-			d.FullScientificName,
+			d.ScientificNameString,
 		)
 
 		if d.BasionymID == "" {
