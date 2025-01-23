@@ -3,7 +3,7 @@ module github.com/sfborg/from-coldp
 go 1.23.4
 
 require (
-	github.com/gnames/coldp v0.3.2
+	github.com/gnames/coldp v0.3.3
 	github.com/gnames/gnfmt v0.5.3
 	github.com/gnames/gnlib v0.44.0
 	github.com/gnames/gnsys v0.3.4

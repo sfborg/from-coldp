@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.4] - 2025-01-23 Thu
+
+Add: Allow NULL for int and bool fields
+
 ## [v0.5.3] - 2025-01-23 Thu
 
 Add: rename FullScientificName to ScientificNameString.
