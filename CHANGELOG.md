@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.6] - 2025-01-27 Mon
+
+Add: provisional flag to taxon.
+
 ## [v0.5.5] - 2025-01-27 Mon
 
 Add: update to SFGA v0.3.21.
