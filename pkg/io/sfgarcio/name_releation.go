@@ -33,7 +33,7 @@ func (s *sfgarcio) InsertNameRelations(data []coldp.NameRelation) error {
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.NameID, n.RelatedNameID, n.SourceID, n.Type.String(), n.Page,
+			n.NameID, n.RelatedNameID, n.SourceID, n.Type.ID(), n.Page,
 			n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {

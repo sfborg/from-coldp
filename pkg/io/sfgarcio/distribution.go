@@ -33,8 +33,8 @@ func (s *sfgarcio) InsertDistributions(data []coldp.Distribution) error {
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.TaxonID, n.SourceID, n.Area, n.AreaID, n.Gazetteer.String(),
-			n.Status.String(), n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
+			n.TaxonID, n.SourceID, n.Area, n.AreaID, n.Gazetteer.ID(),
+			n.Status.ID(), n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {
 			return err

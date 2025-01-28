@@ -40,7 +40,7 @@ func (s *sfgarcio) InsertReferences(data []coldp.Reference) error {
 
 	for _, d := range data {
 		_, err = stmt.Exec(
-			d.ID, d.AlternativeID, d.SourceID, d.Citation, d.Type.String(),
+			d.ID, d.AlternativeID, d.SourceID, d.Citation, d.Type.ID(),
 			d.Author, d.AuthorID, d.Editor, d.EditorID, d.Title, d.TitleShort,
 			d.ContainerAuthor, d.ContainerTitle, d.ContainerTitleShort,
 			d.Issued, d.Accessed, d.CollectionTitle, d.CollectionEditor,

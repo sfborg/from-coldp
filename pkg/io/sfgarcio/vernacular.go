@@ -35,7 +35,7 @@ func (s *sfgarcio) InsertVernaculars(data []coldp.Vernacular) error {
 	for _, d := range data {
 		_, err = stmt.Exec(
 			d.TaxonID, d.SourceID, d.Name, d.Transliteration, d.Language, d.Preferred,
-			d.Country, d.Area, d.Sex.String(), d.ReferenceID, d.Remarks, d.Modified,
+			d.Country, d.Area, d.Sex.ID(), d.ReferenceID, d.Remarks, d.Modified,
 			d.ModifiedBy,
 		)
 		if err != nil {

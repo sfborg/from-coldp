@@ -36,7 +36,7 @@ func (s *sfgarcio) InsertSpeciesInteractions(
 	for _, n := range data {
 		_, err = stmt.Exec(
 			n.TaxonID, n.RelatedTaxonID, n.SourceID, n.RelatedTaxonScientificName,
-			n.Type.String(), n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
+			n.Type.ID(), n.ReferenceID, n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {
 			return err

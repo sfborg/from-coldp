@@ -56,16 +56,16 @@ func (s *sfgarcio) InsertNames(data []coldp.Name) error {
 	for _, n := range data {
 		_, err = stmt.Exec(
 			n.ID, n.AlternativeID, n.SourceID, n.ScientificName, n.Authorship,
-			n.Rank.String(), n.Uninomial, n.Genus, n.InfragenericEpithet,
+			n.Rank.ID(), n.Uninomial, n.Genus, n.InfragenericEpithet,
 			n.SpecificEpithet, n.InfraspecificEpithet, n.CultivarEpithet,
-			n.Notho.String(), n.OriginalSpelling, n.CombinationAuthorship,
+			n.Notho.ID(), n.OriginalSpelling, n.CombinationAuthorship,
 			n.CombinationAuthorshipID, n.CombinationExAuthorship,
 			n.CombinationExAuthorshipID, n.CombinationAuthorshipYear,
 			n.BasionymAuthorship, n.BasionymAuthorshipID,
 			n.BasionymExAuthorship, n.BasionymExAuthorshipID,
-			n.BasionymAuthorshipYear, n.Code.String(), n.Status.String(), n.ReferenceID,
+			n.BasionymAuthorshipYear, n.Code.ID(), n.Status.ID(), n.ReferenceID,
 			n.PublishedInYear, n.PublishedInPage, n.PublishedInPageLink,
-			n.Gender.String(), n.GenderAgreement, n.Etymology,
+			n.Gender.ID(), n.GenderAgreement, n.Etymology,
 			n.Link, n.Remarks, n.Modified, n.ModifiedBy,
 			n.ScientificNameString,
 		)
@@ -77,7 +77,7 @@ func (s *sfgarcio) InsertNames(data []coldp.Name) error {
 			continue
 		}
 		basStmt.Exec(
-			n.ID, n.BasionymID, coldp.Basionym.String(),
+			n.ID, n.BasionymID, coldp.Basionym.ID(),
 		)
 		if err != nil {
 			return err

@@ -1,7 +1,6 @@
 package sfgarcio
 
 import (
-	"database/sql"
 	"log/slog"
 
 	"github.com/gnames/coldp/ent/coldp"
@@ -25,7 +24,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 		id, alternative_id, source_id, parent_id, ordinal, branch_length,
 		name_id, name_phrase, according_to_id, according_to_page,
 		according_to_page_link, scrutinizer, scrutinizer_id,
-		scrutinizer_date, provisional, reference_id, extinct,
+		scrutinizer_date, status_id, reference_id, extinct,
 		temporal_range_start_id, temporal_range_end_id,
 		environment_id, species, section, subgenus, genus, subtribe,
 		tribe, subfamily, family, superfamily, suborder, "order",
@@ -92,18 +91,12 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 	for _, d := range data {
 		switch d.TaxonomicStatus {
 		case coldp.AcceptedTS, coldp.ProvisionallyAcceptedTS:
-			var provisional sql.NullBool
-			if d.TaxonomicStatus == coldp.ProvisionallyAcceptedTS {
-				provisional.Bool = true
-				provisional.Valid = true
-			}
-
 			_, err = tStmt.Exec(
 				d.ID, d.AlternativeID, d.SourceID, d.ParentID, d.Ordinal, d.BranchLength,
 				d.ID, d.NamePhrase, d.AccordingToID, d.AccordingToPage,
 				d.AccordingToPageLink, d.Scrutinizer, d.ScrutinizerID,
-				d.ScrutinizerDate, provisional, d.ReferenceID, d.Extinct,
-				d.TemporalRangeStart.String(), d.TemporalRangeEnd.String(),
+				d.ScrutinizerDate, d.TaxonomicStatus.ID(), d.ReferenceID, d.Extinct,
+				d.TemporalRangeStart.ID(), d.TemporalRangeEnd.ID(),
 				d.Environment, d.Species, d.Section, d.Subgenus, d.Genus, d.Subtribe,
 				d.Tribe, d.Subfamily, d.Family, d.Superfamily, d.Suborder, d.Order,
 				d.Subclass, d.Class, d.Subphylum, d.Phylum, d.Kingdom,
@@ -115,7 +108,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 		default:
 			_, err = sStmt.Exec(
 				d.ID, d.ParentID, d.SourceID, d.ID, d.NamePhrase, d.AccordingToID,
-				d.TaxonomicStatus.String(), d.ReferenceID, d.Link, d.NameRemarks,
+				d.TaxonomicStatus.ID(), d.ReferenceID, d.Link, d.NameRemarks,
 				d.Modified, d.ModifiedBy,
 			)
 			if err != nil {
@@ -125,15 +118,15 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 
 		_, err = nStmt.Exec(
 			d.ID, d.NameAlternativeID, d.SourceID, d.ScientificName, d.Authorship,
-			d.Rank.String(), d.Uninomial, d.GenericName, d.InfragenericEpithet,
+			d.Rank.ID(), d.Uninomial, d.GenericName, d.InfragenericEpithet,
 			d.SpecificEpithet, d.InfraspecificEpithet, d.CultivarEpithet,
-			d.Notho.String(), d.OriginalSpelling, d.CombinationAuthorship,
+			d.Notho.ID(), d.OriginalSpelling, d.CombinationAuthorship,
 			d.CombinationAuthorshipID, d.CombinationExAuthorship,
 			d.CombinationExAuthorshipID, d.CombinationAuthorshipYear,
 			d.BasionymAuthorship, d.BasionymAuthorshipID, d.BasionymExAuthorship,
-			d.BasionymExAuthorshipID, d.BasionymAuthorshipYear, d.Code.String(),
-			d.NameStatus.String(), d.NameReferenceID, d.PublishedInYear,
-			d.PublishedInPage, d.PublishedInPageLink, d.Gender.String(),
+			d.BasionymExAuthorshipID, d.BasionymAuthorshipYear, d.Code.ID(),
+			d.NameStatus.ID(), d.NameReferenceID, d.PublishedInYear,
+			d.PublishedInPage, d.PublishedInPageLink, d.Gender.ID(),
 			d.GenderAgreement, d.Etymology, d.Link, d.NameRemarks, d.Modified,
 			d.ModifiedBy, d.ScientificNameString,
 		)
@@ -142,7 +135,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 			continue
 		}
 		basStmt.Exec(
-			d.ID, d.BasionymID, coldp.Basionym.String(),
+			d.ID, d.BasionymID, coldp.Basionym.ID(),
 		)
 		if err != nil {
 			return err

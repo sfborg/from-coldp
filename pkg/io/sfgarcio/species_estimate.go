@@ -33,7 +33,7 @@ func (s *sfgarcio) InsertSpeciesEstimates(data []coldp.SpeciesEstimate) error {
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.TaxonID, n.SourceID, n.Estimate, n.Type.String(), n.ReferenceID,
+			n.TaxonID, n.SourceID, n.Estimate, n.Type.ID(), n.ReferenceID,
 			n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {

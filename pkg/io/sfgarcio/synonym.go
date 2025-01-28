@@ -35,7 +35,7 @@ func (s *sfgarcio) InsertSynonyms(data []coldp.Synonym) error {
 	for _, d := range data {
 		_, err = stmt.Exec(
 			d.ID, d.TaxonID, d.SourceID, d.NameID, d.NamePhrase,
-			d.AccordingToID, d.Status.String(), d.ReferenceID,
+			d.AccordingToID, d.Status.ID(), d.ReferenceID,
 			d.Link, d.Remarks, d.Modified, d.ModifiedBy,
 		)
 		if err != nil {

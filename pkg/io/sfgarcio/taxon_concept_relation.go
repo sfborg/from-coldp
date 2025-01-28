@@ -35,7 +35,7 @@ func (s *sfgarcio) InsertTaxonConceptRelations(
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.TaxonID, n.RelatedTaxonID, n.SourceID, n.Type.String(), n.ReferenceID,
+			n.TaxonID, n.RelatedTaxonID, n.SourceID, n.Type.ID(), n.ReferenceID,
 			n.Remarks, n.Modified, n.ModifiedBy,
 		)
 		if err != nil {

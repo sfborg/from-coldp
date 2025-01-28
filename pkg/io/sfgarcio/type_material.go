@@ -36,9 +36,9 @@ func (s *sfgarcio) InsertTypeMaterials(data []coldp.TypeMaterial) error {
 
 	for _, n := range data {
 		_, err = stmt.Exec(
-			n.ID, n.SourceID, n.NameID, n.Citation, n.Status.String(),
+			n.ID, n.SourceID, n.NameID, n.Citation, n.Status.ID(),
 			n.InstitutionCode, n.CatalogNumber, n.ReferenceID, n.Locality,
-			n.Country, n.Latitude, n.Longitude, n.Altitude, n.Host, n.Sex.String(),
+			n.Country, n.Latitude, n.Longitude, n.Altitude, n.Host, n.Sex.ID(),
 			n.Date, n.Collector, n.AssociatedSequences,
 			n.Link, n.Remarks, n.Modified, n.ModifiedBy,
 		)
