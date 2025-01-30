@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.9] - 2025-01-30 Thu
+
+Add: take in account a case, where taxonomic status is unknown, but the
+ParentID is given.
+
 ## [v0.5.8] - 2025-01-30 Thu
 
 Add: NameUsage does not create taxon or synonym records for names with
@@ -68,6 +73,14 @@ Add: initial commit
 
 This document follows [changelog guidelines]
 
+[v0.5.9]: https://github.com/sfborg/from-coldp/compare/v0.5.8...v0.5.9
+[v0.5.8]: https://github.com/sfborg/from-coldp/compare/v0.5.7...v0.5.8
+[v0.5.7]: https://github.com/sfborg/from-coldp/compare/v0.5.6...v0.5.7
+[v0.5.6]: https://github.com/sfborg/from-coldp/compare/v0.5.5...v0.5.6
+[v0.5.5]: https://github.com/sfborg/from-coldp/compare/v0.5.4...v0.5.5
+[v0.5.4]: https://github.com/sfborg/from-coldp/compare/v0.5.3...v0.5.4
+[v0.5.3]: https://github.com/sfborg/from-coldp/compare/v0.5.2...v0.5.3
+[v0.5.2]: https://github.com/sfborg/from-coldp/compare/v0.5.1...v0.5.2
 [v0.5.1]: https://github.com/sfborg/from-coldp/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/sfborg/from-coldp/compare/v0.0.0...v0.5.0
 [v0.0.0]: https://github.com/sfborg/from-coldp/tree/v0.0.0
