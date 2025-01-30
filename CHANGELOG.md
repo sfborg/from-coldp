@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.8] - 2025-01-30 Thu
+
+Add: NameUsage does not create taxon or synonym records for names with
+unknown taxonomic status.
+
 ## [v0.5.7] - 2025-01-28 Tue
 
 Add: upgrade to coldp v0.3.5

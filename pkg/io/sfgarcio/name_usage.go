@@ -105,6 +105,7 @@ func (s *sfgarcio) InsertNameUsages(data []coldp.NameUsage) error {
 			if err != nil {
 				return err
 			}
+		case coldp.UnknownTaxSt:
 		default:
 			_, err = sStmt.Exec(
 				d.ID, d.ParentID, d.SourceID, d.ID, d.NamePhrase, d.AccordingToID,
