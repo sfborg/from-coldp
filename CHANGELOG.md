@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.10] - 2025-02-02 Sun
+
+Add: Ignore BibTex references.
+
 ## [v0.5.9] - 2025-01-30 Thu
 
 Add: take in account a case, where taxonomic status is unknown, but the

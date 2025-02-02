@@ -28,6 +28,8 @@ func importData[T coldp.DataLoader](
 	ext := filepath.Ext(path)
 
 	switch ext {
+	case ".bib":
+		// skip for now
 	case ".json":
 		err = coldp.ReadJSON(path, chIn)
 		if err != nil {
