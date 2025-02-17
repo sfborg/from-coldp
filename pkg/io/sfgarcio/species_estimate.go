@@ -21,7 +21,7 @@ func (s *sfgarcio) InsertSpeciesEstimates(data []coldp.SpeciesEstimate) error {
 	stmt, err := tx.Prepare(`
 	INSERT INTO species_estimate
 		(
-		taxon_id, source_id, estimate, type, reference_id,
+		taxon_id, source_id, estimate, type_id, reference_id,
 		remarks, modified, modified_by
 		)
 	VALUES (?,?,?,?,?, ?,?,?)

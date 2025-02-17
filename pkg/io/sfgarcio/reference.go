@@ -21,7 +21,7 @@ func (s *sfgarcio) InsertReferences(data []coldp.Reference) error {
 	stmt, err := tx.Prepare(`
 	INSERT INTO reference
 		(
-		id, alternative_id, source_id, citation, type,
+		id, alternative_id, source_id, citation, type_id,
 		author, author_id, editor, editor_id, title, title_short,
 		container_author, container_title, container_title_short,
 		issued, accessed, collection_title, collection_editor,

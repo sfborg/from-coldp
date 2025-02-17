@@ -23,7 +23,7 @@ func (s *sfgarcio) InsertTaxonConceptRelations(
 	stmt, err := tx.Prepare(`
 	INSERT INTO taxon_concept_relation
 		(
-			taxon_id, related_taxon_id, source_id, type, reference_id,
+			taxon_id, related_taxon_id, source_id, type_id, reference_id,
 			remarks, modified, modified_by
 		)
 	VALUES (?,?,?,?,?, ?,?,?)
