@@ -18,6 +18,7 @@ var (
 
 	// schemaHash is the sha256 sum of the correponding schema version.
 	schemaHash = "b1db9df2e759f"
+
 	// jobsNum is the default number of concurrent jobs to run.
 	jobsNum = 5
 )
