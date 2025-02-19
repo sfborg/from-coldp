@@ -24,6 +24,10 @@ func New(cfg config.Config, sch sfga.Schema, sfdb sfga.DB) sfgarc.Archive {
 	return &sfgarcio{cfg: cfg, sch: sch, sfdb: sfdb}
 }
 
+func (s *sfgarcio) DB() *sql.DB {
+	return s.db
+}
+
 func (s *sfgarcio) Exists() bool {
 	if s.db == nil {
 		return false
