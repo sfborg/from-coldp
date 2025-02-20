@@ -2,7 +2,7 @@ package fcoldp
 
 import (
 	"github.com/gnames/coldp/ent/coldp"
-	"github.com/sfborg/from-coldp/pkg/ent/sfgarc"
+	"github.com/sfborg/sflib/ent/sfga"
 )
 
 func (fc *fcoldp) importData(c coldp.Archive) error {
@@ -101,78 +101,78 @@ func (fc *fcoldp) importData(c coldp.Archive) error {
 	return nil
 }
 
-func insertAuthors(s sfgarc.Archive, data []coldp.Author) error {
+func insertAuthors(s sfga.Archive, data []coldp.Author) error {
 	return s.InsertAuthors(data)
 }
 
-func insertDistributions(s sfgarc.Archive, data []coldp.Distribution) error {
+func insertDistributions(s sfga.Archive, data []coldp.Distribution) error {
 	return s.InsertDistributions(data)
 }
 
-func insertMedia(s sfgarc.Archive, data []coldp.Media) error {
+func insertMedia(s sfga.Archive, data []coldp.Media) error {
 	return s.InsertMedia(data)
 }
 
-func insertNames(s sfgarc.Archive, data []coldp.Name) error {
+func insertNames(s sfga.Archive, data []coldp.Name) error {
 	return s.InsertNames(data)
 }
 
-func insertNameRelations(s sfgarc.Archive, data []coldp.NameRelation) error {
+func insertNameRelations(s sfga.Archive, data []coldp.NameRelation) error {
 	return s.InsertNameRelations(data)
 }
 
-func insertNameUsages(s sfgarc.Archive, data []coldp.NameUsage) error {
+func insertNameUsages(s sfga.Archive, data []coldp.NameUsage) error {
 	return s.InsertNameUsages(data)
 }
 
-func insertReferences(s sfgarc.Archive, data []coldp.Reference) error {
+func insertReferences(s sfga.Archive, data []coldp.Reference) error {
 	return s.InsertReferences(data)
 }
 
 func insertSpeciesEstimates(
-	s sfgarc.Archive,
+	s sfga.Archive,
 	data []coldp.SpeciesEstimate,
 ) error {
 	return s.InsertSpeciesEstimates(data)
 }
 
 func insertSpeciesInteractions(
-	s sfgarc.Archive,
+	s sfga.Archive,
 	data []coldp.SpeciesInteraction,
 ) error {
 	return s.InsertSpeciesInteractions(data)
 }
 
-func insertSynonyms(s sfgarc.Archive, data []coldp.Synonym) error {
+func insertSynonyms(s sfga.Archive, data []coldp.Synonym) error {
 	return s.InsertSynonyms(data)
 }
 
-func insertTaxa(s sfgarc.Archive, data []coldp.Taxon) error {
+func insertTaxa(s sfga.Archive, data []coldp.Taxon) error {
 	return s.InsertTaxa(data)
 }
 
 func insertTaxonConceptRels(
-	s sfgarc.Archive,
+	s sfga.Archive,
 	data []coldp.TaxonConceptRelation,
 ) error {
 	return s.InsertTaxonConceptRelations(data)
 }
 
 func insertTaxonProperties(
-	s sfgarc.Archive,
+	s sfga.Archive,
 	data []coldp.TaxonProperty,
 ) error {
 	return s.InsertTaxonProperties(data)
 }
 
-func insertTreatments(s sfgarc.Archive, data []coldp.Treatment) error {
+func insertTreatments(s sfga.Archive, data []coldp.Treatment) error {
 	return s.InsertTreatments(data)
 }
 
-func insertTypeMaterials(s sfgarc.Archive, data []coldp.TypeMaterial) error {
+func insertTypeMaterials(s sfga.Archive, data []coldp.TypeMaterial) error {
 	return s.InsertTypeMaterials(data)
 }
 
-func insertVernaculars(s sfgarc.Archive, data []coldp.Vernacular) error {
+func insertVernaculars(s sfga.Archive, data []coldp.Vernacular) error {
 	return s.InsertVernaculars(data)
 }

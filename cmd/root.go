@@ -28,10 +28,8 @@ import (
 	"github.com/gnames/coldp/ent/coldp"
 	fcoldp "github.com/sfborg/from-coldp/pkg"
 	"github.com/sfborg/from-coldp/pkg/config"
-	"github.com/sfborg/from-coldp/pkg/io/sfgarcio"
 	"github.com/sfborg/from-coldp/pkg/io/sysio"
-	"github.com/sfborg/sflib/io/dbio"
-	"github.com/sfborg/sflib/io/schemaio"
+	"github.com/sfborg/sflib/io/sfgaio"
 	"github.com/spf13/cobra"
 )
 
@@ -71,17 +69,15 @@ var rootCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		sfgaSchema := schemaio.New(cfg.GitRepo, cfg.TempRepoDir)
-		sfgaDB := dbio.New(cfg.CacheSfgaDir)
-
-		sfarc := sfgarcio.New(cfg, sfgaSchema, sfgaDB)
-		err = sfarc.Connect()
+		sfga := sfgaio.New()
+		err = sfga.Create(cfg.CacheSfgaDir)
+		_, err = sfga.Connect()
 		if err != nil {
 			slog.Error("Cannot initialize storage", "error", err)
 			os.Exit(1)
 		}
 
-		fc := fcoldp.New(cfg, sfarc)
+		fc := fcoldp.New(cfg, sfga)
 		var arc coldp.Archive
 
 		slog.Info("Importing CoLDP data", "file", coldpPath)

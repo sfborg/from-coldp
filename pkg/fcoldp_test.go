@@ -7,10 +7,8 @@ import (
 	"github.com/gnames/coldp/ent/coldp"
 	fcoldp "github.com/sfborg/from-coldp/pkg"
 	"github.com/sfborg/from-coldp/pkg/config"
-	"github.com/sfborg/from-coldp/pkg/io/sfgarcio"
 	"github.com/sfborg/from-coldp/pkg/io/sysio"
-	"github.com/sfborg/sflib/io/dbio"
-	"github.com/sfborg/sflib/io/schemaio"
+	"github.com/sfborg/sflib/io/sfgaio"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -39,14 +37,15 @@ func Init(t *testing.T, path string) (coldp.Archive, error) {
 	err := sysio.New(cfg).ResetCache()
 	assert.Nil(err)
 
-	sfgaSchema := schemaio.New(cfg.GitRepo, cfg.TempRepoDir)
-	sfgaDB := dbio.New(cfg.CacheSfgaDir)
-
-	sfarc := sfgarcio.New(cfg, sfgaSchema, sfgaDB)
-	err = sfarc.Connect()
+	sfga := sfgaio.New()
+	err = sfga.Create(cfg.CacheSfgaDir)
+	if err != nil {
+		return nil, err
+	}
+	_, err = sfga.Connect()
 	assert.Nil(err)
 
-	fc := fcoldp.New(cfg, sfarc)
+	fc := fcoldp.New(cfg, sfga)
 
 	return fc.GetCoLDP(path)
 }

@@ -3,20 +3,20 @@ package fcoldp
 import (
 	coldpConfig "github.com/gnames/coldp/config"
 	"github.com/gnames/coldp/ent/coldp"
-	"github.com/gnames/coldp/io/arcio"
+	"github.com/gnames/coldp/io/coldpio"
 	"github.com/sfborg/from-coldp/pkg/config"
-	"github.com/sfborg/from-coldp/pkg/ent/sfgarc"
+	"github.com/sfborg/sflib/ent/sfga"
 )
 
 type fcoldp struct {
 	cfg config.Config
-	s   sfgarc.Archive
+	s   sfga.Archive
 }
 
-func New(cfg config.Config, sfgarc sfgarc.Archive) FromCoLDP {
+func New(cfg config.Config, sfga sfga.Archive) FromCoLDP {
 	res := fcoldp{
 		cfg: cfg,
-		s:   sfgarc,
+		s:   sfga,
 	}
 	return &res
 }
@@ -28,7 +28,7 @@ func (fc *fcoldp) GetCoLDP(path string) (coldp.Archive, error) {
 		coldpConfig.OptBadRow(fc.cfg.BadRow),
 	}
 	cfg := coldpConfig.New(opts...)
-	c := arcio.New(cfg, path)
+	c := coldpio.New(cfg, path)
 	// Resets cache for coldp working dir
 	err := c.ResetCache()
 	if err != nil {
@@ -62,7 +62,7 @@ func (fc *fcoldp) ImportCoLDP(c coldp.Archive) error {
 
 // ExportSFGA writes a Species File Group Archive to a file.
 func (fc *fcoldp) ExportSFGA(outputPath string) error {
-	err := fc.s.Export(outputPath)
+	err := fc.s.Export(outputPath, fc.cfg.WithZipOutput)
 	if err != nil {
 		return err
 	}

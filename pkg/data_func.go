@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/gnames/coldp/ent/coldp"
-	"github.com/sfborg/from-coldp/pkg/ent/sfgarc"
+	"github.com/sfborg/sflib/ent/sfga"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -13,7 +13,7 @@ func importData[T coldp.DataLoader](
 	fc *fcoldp,
 	path string,
 	c coldp.Archive,
-	insertFunc func(sfgarc.Archive, []T) error) error {
+	insertFunc func(sfga.Archive, []T) error) error {
 	chIn := make(chan T)
 	var err error
 
@@ -55,10 +55,10 @@ func importData[T coldp.DataLoader](
 }
 
 func insert[T coldp.DataLoader](
-	s sfgarc.Archive,
+	s sfga.Archive,
 	batchSize int,
 	ch <-chan T,
-	insertFunc func(sfgarc.Archive, []T) error,
+	insertFunc func(sfga.Archive, []T) error,
 ) error {
 	var err error
 	names := make([]T, 0, batchSize)

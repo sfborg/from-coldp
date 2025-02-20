@@ -6,19 +6,9 @@ import (
 	"path/filepath"
 
 	"github.com/gnames/gnfmt"
-	"github.com/sfborg/sflib/ent/sfga"
 )
 
 var (
-	// repoURL is the URL to the SFGA schema repository.
-	repoURL = "https://github.com/sfborg/sfga"
-
-	// tag of the sfga repo to get correct schema version.
-	repoTag = "v0.3.24"
-
-	// schemaHash is the sha256 sum of the correponding schema version.
-	schemaHash = "b1db9df2e759f"
-
 	// jobsNum is the default number of concurrent jobs to run.
 	jobsNum = 5
 )
@@ -26,9 +16,6 @@ var (
 // Config is a configuration object for the Catalogue of Life Data
 // Package Archive (CoLDP) data processing.
 type Config struct {
-	// GitRepo contains data for sfga schema Git repository.
-	sfga.GitRepo
-
 	// TempRepoDir is a temporary location to schema files downloaded from GitHub.
 	TempRepoDir string
 
@@ -127,11 +114,6 @@ func New(opts ...Option) Config {
 	schemaRepo := filepath.Join(tmpDir, "sfborg", "sfga")
 
 	res := Config{
-		GitRepo: sfga.GitRepo{
-			URL:          repoURL,
-			Tag:          repoTag,
-			ShaSchemaSQL: schemaHash,
-		},
 		TempRepoDir: schemaRepo,
 		CacheDir:    path,
 		JobsNum:     jobsNum,
