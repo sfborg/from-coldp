@@ -9,7 +9,7 @@ require (
 	github.com/gnames/gnsys v0.3.6
 	github.com/lmittmann/tint v1.0.7
 	github.com/sfborg/sflib v0.2.3
-	github.com/spf13/cobra v1.8.1
+	github.com/spf13/cobra v1.9.1
 	github.com/spf13/cobra-cli v1.3.0
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/sync v0.11.0
