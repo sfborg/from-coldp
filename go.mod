@@ -1,14 +1,14 @@
 module github.com/sfborg/from-coldp
 
-go 1.23.5
+go 1.23.6
 
 require (
-	github.com/gnames/coldp v0.3.8
+	github.com/gnames/coldp v0.3.10
 	github.com/gnames/gnfmt v0.5.4
-	github.com/gnames/gnlib v0.44.0
-	github.com/gnames/gnsys v0.3.6
+	github.com/gnames/gnlib v0.45.0
+	github.com/gnames/gnsys v0.3.8
 	github.com/lmittmann/tint v1.0.7
-	github.com/sfborg/sflib v0.2.3
+	github.com/sfborg/sflib v0.2.4
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/cobra-cli v1.3.0
 	github.com/stretchr/testify v1.10.0
@@ -17,7 +17,7 @@ require (
 
 require (
 	github.com/VividCortex/ewma v1.2.0 // indirect
-	github.com/cheggaaa/pb/v3 v3.1.6 // indirect
+	github.com/cheggaaa/pb/v3 v3.1.7 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fatih/color v1.18.0 // indirect
@@ -48,7 +48,7 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/ulikunitz/xz v0.5.12 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/exp v0.0.0-20250218142911-aa4b98e5adaa // indirect
+	golang.org/x/exp v0.0.0-20250228200357-dead58393ab7 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
@@ -56,5 +56,5 @@ require (
 	modernc.org/libc v1.61.13 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.8.2 // indirect
-	modernc.org/sqlite v1.35.0 // indirect
+	modernc.org/sqlite v1.36.0 // indirect
 )
