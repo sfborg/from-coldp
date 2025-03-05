@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.5.12] - 2025-03-05 Wed
+
+Add: update sflib, coldp to get canonicals, name_match tables.
+
 ## [v0.5.11] - 2025-03-02 Sun
 
 Add: update models.

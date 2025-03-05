@@ -2,17 +2,13 @@ module github.com/sfborg/from-coldp
 
 go 1.23.6
 
-replace github.com/gnames/coldp => ../coldp
-
-replace github.com/sfborg/sflib => ../sflib
-
 require (
-	github.com/gnames/coldp v0.3.11
+	github.com/gnames/coldp v0.3.12
 	github.com/gnames/gnfmt v0.5.4
 	github.com/gnames/gnlib v0.46.0
 	github.com/gnames/gnsys v0.3.8
 	github.com/lmittmann/tint v1.0.7
-	github.com/sfborg/sflib v0.2.4
+	github.com/sfborg/sflib v0.2.6
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/cobra-cli v1.3.0
 	github.com/stretchr/testify v1.10.0
@@ -57,7 +53,7 @@ require (
 	github.com/ulikunitz/xz v0.5.12 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/exp v0.0.0-20250228200357-dead58393ab7 // indirect
-	golang.org/x/net v0.35.0 // indirect
+	golang.org/x/net v0.36.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
